@@ -30,7 +30,7 @@ public class CanoeControls : MonoBehaviour
 
     void Update()
     {
-        if (m_isVR)
+        if (!m_isVR)
             KeyboardNavigation();
         else
             VRNavigation();
