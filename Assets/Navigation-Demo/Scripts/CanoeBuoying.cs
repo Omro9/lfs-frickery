@@ -27,7 +27,7 @@ public class CanoeBuoying : MonoBehaviour {
         m_maxAngle = 2f * Mathf.Sin(m_time) * Time.deltaTime + m_maxAngle;
         m_speed = 2f * Mathf.Sin(m_time)* Time.deltaTime + m_speed;
 
-        m_maxAngle = Mathf.Clamp(m_maxAngle, 1f, 10f);
+        m_maxAngle = Mathf.Clamp(m_maxAngle, 1f, 5f);
         m_speed = Mathf.Clamp(m_speed, 1f, 3f);
 
 

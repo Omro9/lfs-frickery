@@ -9,6 +9,8 @@ public class Sun : MonoBehaviour {
     private float m_sunRadius = 100f;
     private float m_timeInOneDay = 10f;
 
+    private float time;
+
     void Start()
     {
         transform.position = new Vector3(0f, m_sunRadius, 0f);

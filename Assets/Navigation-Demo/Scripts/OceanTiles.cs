@@ -25,15 +25,8 @@ public class OceanTiles : MonoBehaviour {
 
         if(m_distance > m_distanceThreshold)
         {
-            Debug.Log("Change Tiles");
-            ChangeTiles();
+            m_tile.position = m_canoe.position;
         }
         
-    }
-
-    private void ChangeTiles()
-    {
-        Debug.Log("Changed");
-        m_tile.position = m_canoe.position;
     }
 }

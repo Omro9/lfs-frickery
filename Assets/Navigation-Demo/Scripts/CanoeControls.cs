@@ -49,7 +49,12 @@ public class CanoeControls : MonoBehaviour
         // a - turn left
         // d - turn right
         if (Input.GetKey(KeyCode.W))
-            transform.Translate(Vector3.forward * -m_pushForce * Time.deltaTime, Space.Self);
+        {
+            // transform.Translate(Vector3.forward * -m_pushForce * Time.deltaTime, Space.Self);
+            m_rigidbody.velocity = new Vector3(m_rigidbody.velocity.x + 2f, m_rigidbody.velocity.y, m_rigidbody.velocity.z);
+            Debug.Log(m_rigidbody.velocity);
+        }
+        
 
         if (Input.GetKey(KeyCode.S))
             transform.Translate(Vector3.forward * m_pushForce * Time.deltaTime, Space.Self);
