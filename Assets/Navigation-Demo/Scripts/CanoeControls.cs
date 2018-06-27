@@ -4,12 +4,18 @@
 // that includes testing on desktop or in a VR space
 public class CanoeControls : MonoBehaviour
 {
-    public bool m_isVR;    
+    // Mode is the type of controls the the player will use
+    // Computer - desktop gameplay WASD controls for testing
+    // VR_Simple - Point and click to go for testing
+    // VR_Realistic - realism for the actual game with wind forcing the canoe
+    public enum Mode { Computer, VR_Simple, VR_Realistic}
+    public Mode m_mode;
+
     public SteamVR_ControllerManager m_steamVRManager;
-    
-    private Vector3 m_eulerAngleVelocity = new Vector3(0, 8f, 0);
     private SteamVR_TrackedController m_rightController;
     private SteamVR_TrackedController m_leftController;
+
+    private Vector3 m_eulerAngleVelocity = new Vector3(0, 8f, 0);
     private Rigidbody m_rigidbody;
 
     private float m_pushForce = 10f;
@@ -17,26 +23,25 @@ public class CanoeControls : MonoBehaviour
     void Start()
     {
         m_rigidbody = GetComponent<Rigidbody>();
-
-        if (m_steamVRManager == null)
-        {
-            m_isVR = false;
-        } else
-        {
-            m_leftController = m_steamVRManager.left.GetComponent<SteamVR_TrackedController>();
-            m_rightController = m_steamVRManager.right.GetComponent<SteamVR_TrackedController>();
-        }
     }
 
     void Update()
     {
-        if (!m_isVR)
-            KeyboardNavigation();
-        else
-            VRNavigation();
+        switch (m_mode)
+        {
+            case Mode.Computer:
+                KeyboardNavigation();
+                break;
+            case Mode.VR_Simple:
+                VRPointer();
+                break;
+            case Mode.VR_Realistic:
+                break;
+
+        }
     }
 
-    private void VRNavigation()
+    private void VRPointer()
     {
         Debug.Log("Left Controller Trigger: " + m_leftController.triggerPressed);
     }
@@ -49,11 +54,10 @@ public class CanoeControls : MonoBehaviour
         // a - turn left
         // d - turn right
         if (Input.GetKey(KeyCode.W))
-            transform.Translate(Vector3.forward * -m_pushForce * Time.deltaTime, Space.Self);
-        
+            m_rigidbody.MovePosition(transform.position + (transform.forward * -m_pushForce * Time.deltaTime));
 
         if (Input.GetKey(KeyCode.S))
-            transform.Translate(Vector3.forward * m_pushForce * Time.deltaTime, Space.Self);
+            m_rigidbody.MovePosition(transform.position + (transform.forward * m_pushForce * Time.deltaTime));
 
         if (Input.GetKey(KeyCode.A))
         {

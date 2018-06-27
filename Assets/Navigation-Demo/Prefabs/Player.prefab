@@ -862,9 +862,9 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 390.32855, y: 390.32623, z: 390.32855}
   m_Children:
-  - {fileID: 4815495804062816}
-  - {fileID: 4618957784678628}
   - {fileID: 4877280886540576}
+  - {fileID: 4618957784678628}
+  - {fileID: 4815495804062816}
   - {fileID: 4315313759671696}
   m_Father: {fileID: 4460373243685438}
   m_RootOrder: 0
@@ -1059,13 +1059,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1389031847696096}
-  m_LocalRotation: {x: -0.000000097918786, y: 0.74578005, z: 0.000000008026667, w: 0.66619235}
-  m_LocalPosition: {x: -0.0096, y: 0.002, z: 0.001}
+  m_LocalRotation: {x: -0.0000000024958642, y: 0.99528366, z: 2.0467185e-10, w: 0.09700785}
+  m_LocalPosition: {x: -0.0014, y: 0.0034, z: 0.0043}
   m_LocalScale: {x: 0.0025619469, y: 0.0025619592, z: 0.0025619478}
   m_Children: []
   m_Father: {fileID: 4416202444651172}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 96.452, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 168.86601, z: 0}
 --- !u!4 &4665255371200234
 Transform:
   m_ObjectHideFlags: 1
@@ -1171,7 +1171,7 @@ Transform:
   - {fileID: 4594694310703512}
   - {fileID: 4545287777505366}
   m_Father: {fileID: 4416202444651172}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4849690861825094
 Transform:
@@ -1223,7 +1223,7 @@ Transform:
   - {fileID: 4795974310092838}
   - {fileID: 4563096035837284}
   m_Father: {fileID: 4416202444651172}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4894412055920994
 Transform:
@@ -2855,7 +2855,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eff095f0981b114448ee42e738f4341e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_isVR: 0
+  m_mode: 0
   m_steamVRManager: {fileID: 0}
 --- !u!114 &114804751460124012
 MonoBehaviour:
@@ -2882,7 +2882,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_calmWaves: {fileID: 8300000, guid: 5100b5d69e5171c4c915bdb48d93337b, type: 3}
   m_wind: {fileID: 8300000, guid: a427cb57e5e205a4b9dceb89206dc615, type: 3}
-  m_canoe: {fileID: 4460373243685438}
+  m_player: {fileID: 4460373243685438}
+  m_canoe: {fileID: 4416202444651172}
 --- !u!114 &114916066045919622
 MonoBehaviour:
   m_ObjectHideFlags: 1
