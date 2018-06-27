@@ -4,9 +4,7 @@
 // that includes testing on desktop or in a VR space
 public class CanoeControls : MonoBehaviour
 {
-    private enum Navigation { computer, vR_Simple, vR_Realistic}
-    public Navigation m_navigation;
-    
+    public bool m_isVR;    
     public SteamVR_ControllerManager m_steamVRManager;
     
     private Vector3 m_eulerAngleVelocity = new Vector3(0, 8f, 0);
