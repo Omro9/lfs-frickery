@@ -26,7 +26,8 @@ public class SoundController : MonoBehaviour {
 
     void Update()
     {
-        
+        UpdateWaveSource();
+        UpdateWindSource();
     }
 
     private void PlaySource(AudioSource source, AudioClip clip, bool looping, float volume)
@@ -35,14 +36,15 @@ public class SoundController : MonoBehaviour {
         source.loop = looping;
         source.volume = volume;
         source.Play();
-    }
+    }    
 
-    // The following compares a changable source (like a velocity) and correlates it to a linear funciton from min to max
-    // Ex: as the canoe's velocity increases, the wind and pitch increase
-    // Ex: As the canoe dips down, the calming waves get louder to sound more realistic to a splash sound
-    private void VariableSource(AudioSource source, float changingVariable, float maxChangingVariable, float minVolume, float maxVolume, float minPitch, float maxPitch)
+    private void UpdateWaveSource()
     {
 
     }
-    
+
+    private void UpdateWindSource()
+    {
+
+    }
 }

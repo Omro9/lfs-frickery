@@ -4,7 +4,9 @@
 // that includes testing on desktop or in a VR space
 public class CanoeControls : MonoBehaviour
 {
-    public bool m_isVR;
+    private enum Navigation { computer, vR_Simple, vR_Realistic}
+    public Navigation m_navigation;
+    
     public SteamVR_ControllerManager m_steamVRManager;
     
     private Vector3 m_eulerAngleVelocity = new Vector3(0, 8f, 0);
@@ -49,11 +51,7 @@ public class CanoeControls : MonoBehaviour
         // a - turn left
         // d - turn right
         if (Input.GetKey(KeyCode.W))
-        {
-            // transform.Translate(Vector3.forward * -m_pushForce * Time.deltaTime, Space.Self);
-            m_rigidbody.velocity = new Vector3(m_rigidbody.velocity.x + 2f, m_rigidbody.velocity.y, m_rigidbody.velocity.z);
-            Debug.Log(m_rigidbody.velocity);
-        }
+            transform.Translate(Vector3.forward * -m_pushForce * Time.deltaTime, Space.Self);
         
 
         if (Input.GetKey(KeyCode.S))
