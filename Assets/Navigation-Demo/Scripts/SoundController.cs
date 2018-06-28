@@ -53,7 +53,7 @@ public class SoundController : MonoBehaviour {
 
     private void UpdateWaveSource()
     {
-        Debug.Log(m_canoe.rotation.eulerAngles.x);
+        //Debug.Log(m_canoe.rotation.eulerAngles.x);
         if (m_canoe.rotation.eulerAngles.x > 300f)
             m_audioSources[0].volume += m_waveChangeAcceleration * Time.deltaTime;
         else

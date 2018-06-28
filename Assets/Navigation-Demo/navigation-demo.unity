@@ -216,7 +216,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400006, guid: b544816461f324e56a39767fdeb5b114, type: 2}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 114185344290396148, guid: b544816461f324e56a39767fdeb5b114,
         type: 2}
@@ -229,11 +229,6 @@ Prefab:
 --- !u!4 &1214523589 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4416202444651172, guid: c7a4453bf07322544925d47b33702f86,
-    type: 2}
-  m_PrefabInternal: {fileID: 938046007}
---- !u!4 &1257350988 stripped
-Transform:
-  m_PrefabParentObject: {fileID: 4460373243685438, guid: c7a4453bf07322544925d47b33702f86,
     type: 2}
   m_PrefabInternal: {fileID: 938046007}
 --- !u!1 &1311877628
@@ -299,7 +294,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1334384888
 Prefab:
@@ -372,7 +367,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1565a534192bfc5418b99952fffc495b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  drawAll: 0
+  drawAll: 1
 --- !u!114 &1341334257
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -405,7 +400,7 @@ Camera:
   field of view: 60
   orthographic: 0
   orthographic size: 5
-  m_Depth: 0
+  m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 2147483648
@@ -525,8 +520,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1635349695}
-  m_LocalRotation: {x: 0.05953763, y: 0.9195462, z: 0.1534108, w: -0.35686865}
-  m_LocalPosition: {x: 1.3992856, y: -2.4654896, z: 5.2927}
+  m_LocalRotation: {x: -0.18215834, y: 0.8178155, z: 0.38242438, w: 0.38954815}
+  m_LocalPosition: {x: -111.98108, y: -65.59047, z: 40.661957}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -799,7 +794,7 @@ GameObject:
   - component: {fileID: 2096623560}
   - component: {fileID: 2096623561}
   - component: {fileID: 2096623559}
-  m_Layer: 0
+  m_Layer: 31
   m_Name: Sun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -818,7 +813,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa76139b88307f640b6c4b2e45ca34f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_player: {fileID: 1257350988}
+  skyboxCamera: {fileID: 1341334258}
+  julianDate: 2458297.5
 --- !u!23 &2096623560
 MeshRenderer:
   m_ObjectHideFlags: 0

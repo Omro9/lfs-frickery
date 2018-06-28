@@ -20,8 +20,8 @@ public class CanoeControls : MonoBehaviour
 
     private float m_pushForce = 10f;
 
-    //  Skybox variable additions
-    private const float globalVelocity = 0.01F; // PLACEHOLDER angular velocity in radians/frame
+    // Begin skybox variable additions
+    private const float globalVelocity = 0.03F; // PLACEHOLDER angular velocity in radians/frame
     private Vector3 globalPosition = new Vector3(0, 0, 0);  // x represents latitude, z represents longitude
     public float latitude
     {
