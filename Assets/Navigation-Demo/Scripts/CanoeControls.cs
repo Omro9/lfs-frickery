@@ -61,17 +61,11 @@ public class CanoeControls : MonoBehaviour
         // Controlled by the left controller
         if (m_leftController.triggerPressed)
         {
-            Debug.Log("controller: "  + m_leftController.transform.rotation.eulerAngles.y + " player: " + transform.rotation.eulerAngles.y);
-
-            // Adjust position - always moves forward like a real canoe. Canoe's dont coast sideways
-            m_rigidbody.MovePosition(transform.position + (transform.forward * -m_pushForce * Time.deltaTime * .1f));
+            // Adjust position
+            m_rigidbody.MovePosition(transform.position + (transform.forward * -m_pushForce * Time.deltaTime));
 
             // Adjust rotation based on the angular difference between the controller and the canoe
-            float angularDifference = (m_leftController.transform.rotation.eulerAngles.y - transform.rotation.eulerAngles.y) * Time.deltaTime * 4f;
-            Vector3 angular = new Vector3(0f, angularDifference, 0f);
-
-            Quaternion deltaRotation = Quaternion.Euler(angular * -Time.deltaTime * 3f);
-            m_rigidbody.MoveRotation(m_rigidbody.rotation * deltaRotation);
+            transform.eulerAngles = new Vector3(0f, m_leftController.transform.localRotation.eulerAngles.y - 180f, 0f);
         }
     }
 
