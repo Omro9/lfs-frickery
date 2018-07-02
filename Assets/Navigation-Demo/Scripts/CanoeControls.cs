@@ -5,15 +5,14 @@
 public class CanoeControls : MonoBehaviour
 {
     // Mode is the type of controls the the player will use
-    // Computer - desktop gameplay WASD controls for testing
-    // VR_Simple - Point and click to go for testing
+    // Computer - desktop gameplay WASD controls for testing and audio is through the computer
+    // VR_Simple - Point and click to go for testing and audio is through the Vive headset
     // VR_Realistic - realism for the actual game with wind forcing the canoe
     public enum Mode { Computer, VR_Simple, VR_Realistic }
     public Mode m_mode;
-
-    public SteamVR_ControllerManager m_steamVRManager;
-    private SteamVR_TrackedController m_rightController;
-    private SteamVR_TrackedController m_leftController;
+    
+    public SteamVR_TrackedController m_leftController;
+    public SteamVR_TrackedController m_rightController;
 
     private Vector3 m_eulerAngleVelocity = new Vector3(0, 8f, 0);
     private Rigidbody m_rigidbody;
@@ -54,9 +53,26 @@ public class CanoeControls : MonoBehaviour
         }
     }
 
+    /*
+     * VRPointer is a simple "point there go there" controller
+     */
     private void VRPointer()
     {
-        Debug.Log("Left Controller Trigger: " + m_leftController.triggerPressed);
+        // Controlled by the left controller
+        if (m_leftController.triggerPressed)
+        {
+            Debug.Log("controller: "  + m_leftController.transform.rotation.eulerAngles.y + " player: " + transform.rotation.eulerAngles.y);
+
+            // Adjust position - always moves forward like a real canoe. Canoe's dont coast sideways
+            m_rigidbody.MovePosition(transform.position + (transform.forward * -m_pushForce * Time.deltaTime * .1f));
+
+            // Adjust rotation based on the angular difference between the controller and the canoe
+            float angularDifference = (m_leftController.transform.rotation.eulerAngles.y - transform.rotation.eulerAngles.y) * Time.deltaTime * 4f;
+            Vector3 angular = new Vector3(0f, angularDifference, 0f);
+
+            Quaternion deltaRotation = Quaternion.Euler(angular * -Time.deltaTime * 3f);
+            m_rigidbody.MoveRotation(m_rigidbody.rotation * deltaRotation);
+        }
     }
 
     private void KeyboardNavigation()

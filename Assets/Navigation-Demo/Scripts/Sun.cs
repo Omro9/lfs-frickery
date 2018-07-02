@@ -12,7 +12,7 @@ public class Sun : MonoBehaviour {
 
     public double julianDate = 2458297.5F;
     private float timeOfDay;
-    private const float gameHoursPerRealSecond = 1F;
+    private const float gameHoursPerRealSecond = 100F;
 
     void Start()
     {
