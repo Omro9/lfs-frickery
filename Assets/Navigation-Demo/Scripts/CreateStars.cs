@@ -4,7 +4,9 @@ using UnityEngine;
 using System;
 using System.IO;
 
-
+/*
+ * Script to instantiate given stars from Yale Bright Star Catalog (BSC5.bytes in Resources folder)
+ */
 public class CreateStars : MonoBehaviour {
     public const int RADIUS = 700;
 

@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+ * Short script to make instantiated stars rotate and scale to simulate twinkling
+ */
 public class AnimateStar : MonoBehaviour {
 
     private const float rotationSpeed = 0.01F;

@@ -5,14 +5,15 @@
 public class CanoeControls : MonoBehaviour
 {
     // Mode is the type of controls the the player will use
-    // Computer - desktop gameplay WASD controls for testing and audio is through the computer
-    // VR_Simple - Point and click to go for testing and audio is through the Vive headset
+    // Computer - desktop gameplay WASD controls for testing
+    // VR_Simple - Point and click to go for testing
     // VR_Realistic - realism for the actual game with wind forcing the canoe
     public enum Mode { Computer, VR_Simple, VR_Realistic }
     public Mode m_mode;
-    
-    public SteamVR_TrackedController m_leftController;
-    public SteamVR_TrackedController m_rightController;
+
+    public SteamVR_ControllerManager m_steamVRManager;
+    private SteamVR_TrackedController m_rightController;
+    private SteamVR_TrackedController m_leftController;
 
     private Vector3 m_eulerAngleVelocity = new Vector3(0, 8f, 0);
     private Rigidbody m_rigidbody;
@@ -20,7 +21,7 @@ public class CanoeControls : MonoBehaviour
     private float m_pushForce = 10f;
 
     // Begin skybox variable additions
-    private const float globalVelocity = 0.15F; // PLACEHOLDER angular velocity in radians/frame
+    private const float globalVelocity = 0.03F; // PLACEHOLDER angular velocity in radians/frame
     private Vector3 globalPosition = new Vector3(0, 0, 0);  // x represents latitude, z represents longitude
     public float latitude
     {
@@ -53,20 +54,9 @@ public class CanoeControls : MonoBehaviour
         }
     }
 
-    /*
-     * VRPointer is a simple "point there go there" controller
-     */
     private void VRPointer()
     {
-        // Controlled by the left controller
-        if (m_leftController.triggerPressed)
-        {
-            // Adjust position
-            m_rigidbody.MovePosition(transform.position + (transform.forward * -m_pushForce * Time.deltaTime));
-
-            // Adjust rotation based on the angular difference between the controller and the canoe
-            transform.eulerAngles = new Vector3(0f, m_leftController.transform.localRotation.eulerAngles.y, 0f);
-        }
+        Debug.Log("Left Controller Trigger: " + m_leftController.triggerPressed);
     }
 
     private void KeyboardNavigation()

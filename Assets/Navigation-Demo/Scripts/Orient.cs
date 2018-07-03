@@ -2,8 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+ * Script to orient the skybox camera based upon player's latitude and longitude as well as time of day.
+ * Also rotates sun around to simulate day passing
+ */
 public class Orient : MonoBehaviour {
     private GameObject player;
+    private GameObject sun;
+
+    private const double earthAngularVelocity = 7.2921159D / 100000D * 3600D * Mathf.Rad2Deg;   // In deg/hr
 
     private float oldLat, oldLong;
     private Quaternion oldCameraRotation;
@@ -14,6 +21,7 @@ public class Orient : MonoBehaviour {
         oldLat = 90;    // Initial position of skybox
         oldLong = 0;    // ^
         oldCameraRotation = player.transform.localRotation;
+        sun = GameObject.Find("Sun");
     }
 	
 	// Update is called once per frame
@@ -24,11 +32,17 @@ public class Orient : MonoBehaviour {
         // geocentric, so no need to worry about rotation to align with equator
         // so, initial position of skydome is where north pole is directly above you (aka offset in lat/long of like 90N, 0E)
 
-        // This is a vector approach to rotation:
-        //      Find original position vector, find new position vector.
-        //      Cross them to find axis of rotation
-        //      Use Vector3.SignedAngle() to calculate change in degrees of rotation along axis by which to rotate skybox
-
+        /*
+         * ROTATE BASED ON GLOBAL POSITION
+         * 
+         * This is a vector approach to rotation:
+         *     Find original position vector, find new position vector.
+         *     Cross them to find axis of rotation
+         *     Use Vector3.SignedAngle() to calculate change in degrees of rotation along axis by which to rotate skybox
+         * 
+         * This can probably be run only occasionally, as lat/long won't change significantly frame-to-frame, to save 
+         * computation.
+         */
         float curLat = player.GetComponent<CanoeControls>().latitude;
         float curLong = player.GetComponent<CanoeControls>().longitude;
         Quaternion curCameraRotation = player.transform.localRotation;
@@ -45,5 +59,19 @@ public class Orient : MonoBehaviour {
         oldLat = curLat;
         oldLong = curLong;
         oldCameraRotation = curCameraRotation;
+
+        /*
+         * ROTATE BASED ON TIME OF DAY
+         * 
+         * One thing to note: because of the similar radii of our stars and sun, will not get parallax effect
+         * of sun passing over stars
+         */
+        transform.Rotate(new Vector3(0, 1, 0), Time.deltaTime * Sun.gameHoursPerRealSecond * (float) earthAngularVelocity, Space.World);
+
+        // Rotate sun object
+        // JANK LINES, PROLLY DON'T WORK GOOD
+        sun.transform.RotateAround(GameObject.Find("Skybox Camera").transform.position, axis, angle);
+        sun.transform.RotateAround(GameObject.Find("Skybox Camera").transform.position, new Vector3(0, 1, 0), Time.deltaTime * Sun.gameHoursPerRealSecond * (float)earthAngularVelocity);
+
     }
 }
