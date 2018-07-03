@@ -15,7 +15,7 @@ public class CanoeControls : MonoBehaviour
     private SteamVR_TrackedController m_rightController;
     private SteamVR_TrackedController m_leftController;
 
-    private Vector3 m_eulerAngleVelocity = new Vector3(0, 8f, 0);
+    private Vector3 m_eulerAngleVelocity = new Vector3(0, 8f, 0f);
     private Rigidbody m_rigidbody;
 
     private float m_pushForce = 10f;
@@ -68,7 +68,7 @@ public class CanoeControls : MonoBehaviour
         if (Input.GetKey(KeyCode.D))
         {
             Quaternion deltaRotation = Quaternion.Euler(m_eulerAngleVelocity * Time.deltaTime * 10f);
-            m_rigidbody.MoveRotation(m_rigidbody.rotation * deltaRotation);
+            m_rigidbody.MoveRotation(m_rigidbody.rotation * deltaRotation);;
         }
     }
 }
