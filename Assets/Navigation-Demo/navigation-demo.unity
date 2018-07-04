@@ -13,7 +13,11 @@ OcclusionCullingSettings:
 --- !u!104 &2
 RenderSettings:
   m_ObjectHideFlags: 0
+<<<<<<< HEAD
   serializedVersion: 9
+=======
+  serializedVersion: 8
+>>>>>>> origin/avery
   m_Fog: 0
   m_FogColor: {r: 0.8650519, g: 0.9411765, b: 0.9411765, a: 1}
   m_FogMode: 3
@@ -26,7 +30,11 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
+<<<<<<< HEAD
   m_SkyboxMaterial: {fileID: 2100000, guid: 9eb5b2fa8b6785d4baf02724eacbaa25, type: 2}
+=======
+  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+>>>>>>> origin/avery
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -38,8 +46,12 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
+<<<<<<< HEAD
   m_IndirectSpecularColor: {r: 0.026308153, g: 0.022598656, b: 0.02334558, a: 1}
   m_UseRadianceAmbientProbe: 0
+=======
+  m_IndirectSpecularColor: {r: 0.17276813, g: 0.21589185, b: 0.29782563, a: 1}
+>>>>>>> origin/avery
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -55,10 +67,18 @@ LightmapSettings:
     m_EnableBakedLightmaps: 0
     m_EnableRealtimeLightmaps: 0
   m_LightmapEditorSettings:
+<<<<<<< HEAD
     serializedVersion: 10
     m_Resolution: 2
     m_BakeResolution: 40
     m_AtlasSize: 1024
+=======
+    serializedVersion: 9
+    m_Resolution: 2
+    m_BakeResolution: 40
+    m_TextureWidth: 1024
+    m_TextureHeight: 1024
+>>>>>>> origin/avery
     m_AO: 0
     m_AOMaxDistance: 1
     m_CompAOExponent: 0
@@ -88,9 +108,14 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaDirect: 0.5
     m_PVRFilteringAtrousPositionSigmaIndirect: 2
     m_PVRFilteringAtrousPositionSigmaAO: 1
+<<<<<<< HEAD
     m_ShowResolutionOverlay: 1
   m_LightingDataAsset: {fileID: 0}
   m_UseShadowmask: 0
+=======
+  m_LightingDataAsset: {fileID: 0}
+  m_UseShadowmask: 1
+>>>>>>> origin/avery
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -113,7 +138,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+<<<<<<< HEAD
 --- !u!1001 &938046007
+=======
+--- !u!1001 &676407146
+>>>>>>> origin/avery
 Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -152,16 +181,20 @@ Prefab:
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
+<<<<<<< HEAD
     - target: {fileID: 33051230680403114, guid: c7a4453bf07322544925d47b33702f86,
         type: 2}
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 1955704029}
+=======
+>>>>>>> origin/avery
     - target: {fileID: 23622419500699710, guid: c7a4453bf07322544925d47b33702f86,
         type: 2}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 1382691956}
+<<<<<<< HEAD
     - target: {fileID: 1763887923403412, guid: c7a4453bf07322544925d47b33702f86, type: 2}
       propertyPath: m_IsActive
       value: 0
@@ -175,10 +208,130 @@ Prefab:
         type: 2}
       propertyPath: m_CullingMask.m_Bits
       value: 2147483647
+=======
+    - target: {fileID: 33051230680403114, guid: c7a4453bf07322544925d47b33702f86,
+        type: 2}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 1955704029}
+    - target: {fileID: 4678385849588486, guid: c7a4453bf07322544925d47b33702f86, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -1.2079227e-13
+      objectReference: {fileID: 0}
+    - target: {fileID: 4678385849588486, guid: c7a4453bf07322544925d47b33702f86, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0.002666095
+      objectReference: {fileID: 0}
+    - target: {fileID: 4678385849588486, guid: c7a4453bf07322544925d47b33702f86, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -4.3437545e-10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4678385849588486, guid: c7a4453bf07322544925d47b33702f86, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 0.9999965
+      objectReference: {fileID: 0}
+    - target: {fileID: 4678385849588486, guid: c7a4453bf07322544925d47b33702f86, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0.30600002
+      objectReference: {fileID: 0}
+    - target: {fileID: 4404140492241124, guid: c7a4453bf07322544925d47b33702f86, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -1.2079227e-13
+      objectReference: {fileID: 0}
+    - target: {fileID: 4404140492241124, guid: c7a4453bf07322544925d47b33702f86, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0.002666095
+      objectReference: {fileID: 0}
+    - target: {fileID: 4404140492241124, guid: c7a4453bf07322544925d47b33702f86, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -4.3437545e-10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4404140492241124, guid: c7a4453bf07322544925d47b33702f86, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 0.9999965
+      objectReference: {fileID: 0}
+    - target: {fileID: 4404140492241124, guid: c7a4453bf07322544925d47b33702f86, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0.30600002
+      objectReference: {fileID: 0}
+    - target: {fileID: 4665255371200234, guid: c7a4453bf07322544925d47b33702f86, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -1.2079227e-13
+      objectReference: {fileID: 0}
+    - target: {fileID: 4665255371200234, guid: c7a4453bf07322544925d47b33702f86, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0.002666095
+      objectReference: {fileID: 0}
+    - target: {fileID: 4665255371200234, guid: c7a4453bf07322544925d47b33702f86, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -4.3437545e-10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4665255371200234, guid: c7a4453bf07322544925d47b33702f86, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 0.9999965
+      objectReference: {fileID: 0}
+    - target: {fileID: 4665255371200234, guid: c7a4453bf07322544925d47b33702f86, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0.30600002
+      objectReference: {fileID: 0}
+    - target: {fileID: 4460373243685438, guid: c7a4453bf07322544925d47b33702f86, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+>>>>>>> origin/avery
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c7a4453bf07322544925d47b33702f86, type: 2}
   m_IsPrefabParent: 0
+<<<<<<< HEAD
+=======
+--- !u!1001 &841259118
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4648309155076134, guid: 4a22bc7f223367e44ad93075f2e8a375, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4648309155076134, guid: 4a22bc7f223367e44ad93075f2e8a375, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 4648309155076134, guid: 4a22bc7f223367e44ad93075f2e8a375, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4648309155076134, guid: 4a22bc7f223367e44ad93075f2e8a375, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 4648309155076134, guid: 4a22bc7f223367e44ad93075f2e8a375, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4648309155076134, guid: 4a22bc7f223367e44ad93075f2e8a375, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4648309155076134, guid: 4a22bc7f223367e44ad93075f2e8a375, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 4648309155076134, guid: 4a22bc7f223367e44ad93075f2e8a375, type: 2}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114377045885316016, guid: 4a22bc7f223367e44ad93075f2e8a375,
+        type: 2}
+      propertyPath: m_player
+      value: 
+      objectReference: {fileID: 1257350988}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 4a22bc7f223367e44ad93075f2e8a375, type: 2}
+  m_IsPrefabParent: 0
+>>>>>>> origin/avery
 --- !u!1001 &960191846
 Prefab:
   m_ObjectHideFlags: 0
@@ -223,6 +376,21 @@ Prefab:
       propertyPath: m_canoe
       value: 
       objectReference: {fileID: 1214523589}
+<<<<<<< HEAD
+=======
+    - target: {fileID: 400006, guid: b544816461f324e56a39767fdeb5b114, type: 2}
+      propertyPath: m_LocalScale.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 400006, guid: b544816461f324e56a39767fdeb5b114, type: 2}
+      propertyPath: m_LocalScale.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 400006, guid: b544816461f324e56a39767fdeb5b114, type: 2}
+      propertyPath: m_LocalScale.z
+      value: 2
+      objectReference: {fileID: 0}
+>>>>>>> origin/avery
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b544816461f324e56a39767fdeb5b114, type: 2}
   m_IsPrefabParent: 0
@@ -230,12 +398,20 @@ Prefab:
 Transform:
   m_PrefabParentObject: {fileID: 4416202444651172, guid: c7a4453bf07322544925d47b33702f86,
     type: 2}
+<<<<<<< HEAD
   m_PrefabInternal: {fileID: 938046007}
+=======
+  m_PrefabInternal: {fileID: 676407146}
+>>>>>>> origin/avery
 --- !u!4 &1257350988 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4460373243685438, guid: c7a4453bf07322544925d47b33702f86,
     type: 2}
+<<<<<<< HEAD
   m_PrefabInternal: {fileID: 938046007}
+=======
+  m_PrefabInternal: {fileID: 676407146}
+>>>>>>> origin/avery
 --- !u!1 &1311877628
 GameObject:
   m_ObjectHideFlags: 0
@@ -245,6 +421,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1311877630}
   - component: {fileID: 1311877629}
+<<<<<<< HEAD
+=======
+  - component: {fileID: 1311877631}
+>>>>>>> origin/avery
   m_Layer: 0
   m_Name: Water4AdvancedReflectionCamera
   m_TagString: Untagged
@@ -276,14 +456,21 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
+<<<<<<< HEAD
     m_Bits: 2147483631
+=======
+    m_Bits: 4294967279
+>>>>>>> origin/avery
   m_RenderingPath: 1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 1
   m_AllowMSAA: 1
+<<<<<<< HEAD
   m_AllowDynamicResolution: 0
+=======
+>>>>>>> origin/avery
   m_ForceIntoRT: 0
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
@@ -294,13 +481,29 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1311877628}
+<<<<<<< HEAD
   m_LocalRotation: {x: 0.000000063437255, y: 0.74578, z: -0.000000051103036, w: 0.6661923}
   m_LocalPosition: {x: -3.7471542, y: -0.6406525, z: 0.39032868}
+=======
+  m_LocalRotation: {x: 0.152917, y: 0.5488668, z: 0.10294101, w: -0.8153311}
+  m_LocalPosition: {x: 5.0981, y: -3.1063752, z: -2.2616944}
+>>>>>>> origin/avery
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+<<<<<<< HEAD
+=======
+--- !u!45 &1311877631
+Skybox:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1311877628}
+  m_Enabled: 1
+  m_CustomSkybox: {fileID: 0}
+>>>>>>> origin/avery
 --- !u!1001 &1334384888
 Prefab:
   m_ObjectHideFlags: 0
@@ -343,6 +546,7 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4f35fa249b5008c44ac2998be6f82d4d, type: 2}
   m_IsPrefabParent: 0
+<<<<<<< HEAD
 --- !u!1 &1341334255
 GameObject:
   m_ObjectHideFlags: 0
@@ -433,6 +637,8 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 168.866, z: 0}
+=======
+>>>>>>> origin/avery
 --- !u!21 &1382691956
 Material:
   serializedVersion: 6
@@ -514,7 +720,10 @@ Camera:
   m_TargetEye: 3
   m_HDR: 1
   m_AllowMSAA: 1
+<<<<<<< HEAD
   m_AllowDynamicResolution: 0
+=======
+>>>>>>> origin/avery
   m_ForceIntoRT: 0
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
@@ -525,8 +734,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1635349695}
+<<<<<<< HEAD
   m_LocalRotation: {x: 0.05953763, y: 0.9195462, z: 0.1534108, w: -0.35686865}
   m_LocalPosition: {x: 1.3992856, y: -2.4654896, z: 5.2927}
+=======
+  m_LocalRotation: {x: 0.000000063437255, y: 0.74578, z: -0.000000051103036, w: 0.6661923}
+  m_LocalPosition: {x: -3.7471542, y: -0.6406525, z: 0.39032868}
+>>>>>>> origin/avery
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -552,7 +766,10 @@ Mesh:
     firstByte: 0
     indexCount: 24
     topology: 0
+<<<<<<< HEAD
     baseVertex: 0
+=======
+>>>>>>> origin/avery
     firstVertex: 0
     vertexCount: 8
     localAABB:
@@ -570,11 +787,18 @@ Mesh:
   m_IsReadable: 1
   m_KeepVertices: 1
   m_KeepIndices: 1
+<<<<<<< HEAD
   m_IndexFormat: 0
   m_IndexBuffer: 000004000100010004000500010005000200020005000600020006000300030006000700030007000000000007000400
   m_Skin: []
   m_VertexData:
     serializedVersion: 2
+=======
+  m_IndexBuffer: 000004000100010004000500010005000200020005000600020006000300030006000700030007000000000007000400
+  m_Skin: []
+  m_VertexData:
+    m_CurrentChannels: 13
+>>>>>>> origin/avery
     m_VertexCount: 8
     m_Channels:
     - stream: 0
@@ -586,10 +810,13 @@ Mesh:
       format: 0
       dimension: 0
     - stream: 0
+<<<<<<< HEAD
       offset: 0
       format: 0
       dimension: 0
     - stream: 0
+=======
+>>>>>>> origin/avery
       offset: 12
       format: 0
       dimension: 4
@@ -613,6 +840,7 @@ Mesh:
       offset: 0
       format: 0
       dimension: 0
+<<<<<<< HEAD
     - stream: 0
       offset: 0
       format: 0
@@ -625,6 +853,8 @@ Mesh:
       offset: 0
       format: 0
       dimension: 0
+=======
+>>>>>>> origin/avery
     m_DataSize: 288
     _typelessdata: 0000c03f0ad7233c000090bf000000000000803f0000803f0000803f00000000000000000000c0bf0ad7233c000090bf000000000000803f0000803f0000803f0000803f000000000000c0bf0ad7233c0000903f000000000000803f0000803f0000803f00000000000000000000c03f0ad7233c0000903f000000000000803f0000803f0000803f0000803f000000003333d33f0ad7233c3333a3bf000000000000803f0000803f00000000000000000000803f3333d3bf0ad7233c3333a3bf000000000000803f0000803f000000000000803f0000803f3333d3bf0ad7233c3333a33f000000000000803f0000803f00000000000000000000803f3333d33f0ad7233c3333a33f000000000000803f0000803f000000000000803f0000803f
   m_CompressedMesh:
@@ -686,6 +916,7 @@ Mesh:
   m_BakedConvexCollisionMesh: 
   m_BakedTriangleCollisionMesh: 
   m_MeshOptimized: 0
+<<<<<<< HEAD
 --- !u!1 &2074711310 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1389031847696096, guid: c7a4453bf07322544925d47b33702f86,
@@ -913,3 +1144,5 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+=======
+>>>>>>> origin/avery
