@@ -1,5 +1,1 @@
-<<<<<<< HEAD
-m_EditorVersion: 2018.1.3f1
-=======
-m_EditorVersion: 2017.2.0b11
->>>>>>> origin/avery
+m_EditorVersion: 2018.1.5f1

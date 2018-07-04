@@ -22,17 +22,10 @@ public class SoundController : MonoBehaviour {
     // Volume bounds
     private float m_windMin = 0f;
     private float m_windMax = .8f;
-<<<<<<< HEAD
     private float m_waveMin = .2f;
     private float m_waveMax = .7f;
 
     private float m_windChangeAcceleration = .5f;
-=======
-    private float m_waveMin = .1f;
-    private float m_waveMax = .7f;
-
-    private float m_windChangeAcceleration = 1f;
->>>>>>> origin/avery
     private float m_waveChangeAcceleration = 2f;
 
     void Start()
@@ -60,12 +53,8 @@ public class SoundController : MonoBehaviour {
 
     private void UpdateWaveSource()
     {
-        Debug.Log(m_canoe.rotation.eulerAngles.x);
-<<<<<<< HEAD
+        //Debug.Log(m_canoe.rotation.eulerAngles.x);
         if (m_canoe.rotation.eulerAngles.x > 300f)
-=======
-        if (m_canoe.rotation.eulerAngles.x > 300f && m_canoe.rotation.eulerAngles.x < 358f)
->>>>>>> origin/avery
             m_audioSources[0].volume += m_waveChangeAcceleration * Time.deltaTime;
         else
             m_audioSources[0].volume -= m_waveChangeAcceleration * Time.deltaTime / 2;

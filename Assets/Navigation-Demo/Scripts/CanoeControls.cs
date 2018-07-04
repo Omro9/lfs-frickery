@@ -8,29 +8,20 @@ public class CanoeControls : MonoBehaviour
     // Computer - desktop gameplay WASD controls for testing
     // VR_Simple - Point and click to go for testing
     // VR_Realistic - realism for the actual game with wind forcing the canoe
-<<<<<<< HEAD
     public enum Mode { Computer, VR_Simple, VR_Realistic }
-=======
-    public enum Mode { Computer, VR_Simple, VR_Realistic}
->>>>>>> origin/avery
     public Mode m_mode;
 
     public SteamVR_ControllerManager m_steamVRManager;
     private SteamVR_TrackedController m_rightController;
     private SteamVR_TrackedController m_leftController;
 
-<<<<<<< HEAD
     private Vector3 m_eulerAngleVelocity = new Vector3(0, 8f, 0);
-=======
-    private Vector3 m_eulerAngleVelocity = new Vector3(0, 8f, 0f);
->>>>>>> origin/avery
     private Rigidbody m_rigidbody;
 
     private float m_pushForce = 10f;
 
-<<<<<<< HEAD
-    //  Skybox variable additions
-    private const float globalVelocity = 0.01F; // PLACEHOLDER angular velocity in radians/frame
+    // Begin skybox variable additions
+    private const float globalVelocity = 0.03F; // PLACEHOLDER angular velocity in radians/frame
     private Vector3 globalPosition = new Vector3(0, 0, 0);  // x represents latitude, z represents longitude
     public float latitude
     {
@@ -42,8 +33,6 @@ public class CanoeControls : MonoBehaviour
     }
     // End skybox variable additions
 
-=======
->>>>>>> origin/avery
     void Start()
     {
         m_rigidbody = GetComponent<Rigidbody>();
@@ -78,7 +67,6 @@ public class CanoeControls : MonoBehaviour
         // a - turn left
         // d - turn right
         if (Input.GetKey(KeyCode.W))
-<<<<<<< HEAD
         {
             m_rigidbody.MovePosition(transform.position + (transform.forward * -m_pushForce * Time.deltaTime));
             Vector3 deltaPosition = transform.forward * -globalVelocity * Time.deltaTime;
@@ -90,13 +78,6 @@ public class CanoeControls : MonoBehaviour
             Vector3 deltaPosition = transform.forward * globalVelocity * Time.deltaTime;
             globalPosition += deltaPosition;
         }
-=======
-            m_rigidbody.MovePosition(transform.position + (transform.forward * -m_pushForce * Time.deltaTime));
-
-        if (Input.GetKey(KeyCode.S))
-            m_rigidbody.MovePosition(transform.position + (transform.forward * m_pushForce * Time.deltaTime));
-
->>>>>>> origin/avery
         if (Input.GetKey(KeyCode.A))
         {
             Quaternion deltaRotation = Quaternion.Euler(m_eulerAngleVelocity * -Time.deltaTime * 10f);
@@ -106,11 +87,7 @@ public class CanoeControls : MonoBehaviour
         if (Input.GetKey(KeyCode.D))
         {
             Quaternion deltaRotation = Quaternion.Euler(m_eulerAngleVelocity * Time.deltaTime * 10f);
-<<<<<<< HEAD
             m_rigidbody.MoveRotation(m_rigidbody.rotation * deltaRotation);
-=======
-            m_rigidbody.MoveRotation(m_rigidbody.rotation * deltaRotation);;
->>>>>>> origin/avery
         }
     }
 }
