@@ -6,7 +6,7 @@ using UnityEngine;
  * Script to handle rotation of moon around Earth
  */
 public class Moon : MonoBehaviour {
-    public const float RADIUS = 100F;
+    public static int RADIUS = 100;
     private const float angularVelocity = 360F / 27.322F / 24F; // In deg/hour, using sidereal orbit of moon
     private const float orbitalInclinationFromEquator = (23.4F + 5.145F) * Mathf.Deg2Rad;
     private readonly Vector3 axisOfRotation = new Vector3(Mathf.Cos(orbitalInclinationFromEquator),
@@ -14,6 +14,8 @@ public class Moon : MonoBehaviour {
                                                  0);
 
     private float gamma;    // Angle of rotation around Earth in degrees.
+    private GameObject skyboxCamera;
+    private Vector3 skyboxCameraPosition;
 
 	// Use this for initialization
 	void Start () {
@@ -22,6 +24,8 @@ public class Moon : MonoBehaviour {
                                new Vector3(0, 0, 1), 
                                Vector3.Angle(new Vector3(0, 1, 0), axisOfRotation));
         gamma = 0;
+        skyboxCamera = GameObject.Find("Skybox Camera");
+        skyboxCameraPosition = skyboxCamera.transform.position;
 	}
 	
 	// Update is called once per frame
@@ -30,5 +34,15 @@ public class Moon : MonoBehaviour {
         transform.RotateAround(new Vector3(0, 0, 0), //GameObject.Find("Skybox Camera").transform.position,
                                axisOfRotation,
                                Time.deltaTime * Sun.gameHoursPerRealSecond * angularVelocity);
+        //transform.LookAt(skyboxCamera.transform);   // Hopefully will provided directed light to scene/moon's front
+
+        followCamera();
 	}
+
+    private void followCamera()
+    {
+        Vector3 delta = skyboxCamera.transform.position - skyboxCameraPosition;
+        transform.Translate(delta);
+        skyboxCameraPosition = skyboxCamera.transform.position;
+    }
 }

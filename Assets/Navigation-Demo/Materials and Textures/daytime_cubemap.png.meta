@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: e6b544bf78a6640ca9ff5bf63052758d
+guid: c574a12915f9a66479313a2b1ea3f24a
 TextureImporter:
   fileIDToRecycleName:
     8900000: generatedCubemap
@@ -23,7 +23,7 @@ TextureImporter:
     normalMapFilter: 0
   isReadable: 0
   grayScaleToAlpha: 0
-  generateCubemap: 5
+  generateCubemap: 2
   cubemapConvolution: 0
   seamlessCubemap: 0
   textureFormat: 1
@@ -33,9 +33,9 @@ TextureImporter:
     filterMode: -1
     aniso: -1
     mipBias: -1
-    wrapU: 1
-    wrapV: 1
-    wrapW: 1
+    wrapU: -1
+    wrapV: -1
+    wrapW: -1
   nPOTScale: 1
   lightmap: 0
   compressionQuality: 50

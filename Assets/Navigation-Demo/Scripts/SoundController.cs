@@ -30,6 +30,9 @@ public class SoundController : MonoBehaviour {
 
     void Start()
     {
+        gameObject.AddComponent<AudioSource>();
+        gameObject.AddComponent<AudioSource>();
+
         m_audioSources = transform.GetComponents<AudioSource>();
         m_rigidbody = m_player.GetComponent<Rigidbody>();
 

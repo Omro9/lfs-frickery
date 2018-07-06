@@ -23,11 +23,6 @@ public class CanoeBuoying : MonoBehaviour {
         float angle = m_maxAngle * Mathf.Sin(m_time);
         transform.eulerAngles = new Vector3(angle, transform.eulerAngles.y, transform.eulerAngles.z);
 
-        // BEGIN SKYBOX ADDITIONS
-        float angleDeriv = m_maxAngle * Mathf.Cos(m_time) / 300F;
-        GameObject.Find("Skybox Camera").transform.Rotate(new Vector3(1, 0, 0), -angleDeriv);
-        // END SKYBOX ADDITIONS
-
         // Vary the time and max angle between buoying for more variation
         m_maxAngle = 2f * Mathf.Sin(m_time) * Time.deltaTime + m_maxAngle;
         m_speed = 2f * Mathf.Sin(m_time)* Time.deltaTime + m_speed;

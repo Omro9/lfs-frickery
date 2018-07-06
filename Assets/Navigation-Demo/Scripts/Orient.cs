@@ -40,8 +40,7 @@ public class Orient : MonoBehaviour {
          *     Cross them to find axis of rotation
          *     Use Vector3.SignedAngle() to calculate change in degrees of rotation along axis by which to rotate skybox
          * 
-         * This can probably be run only occasionally, as lat/long won't change significantly frame-to-frame, to save 
-         * computation.
+         * This can probably be run only occasionally, as lat/long won't change significantly frame-to-frame.
          */
         float curLat = player.GetComponent<CanoeControls>().latitude;
         float curLong = player.GetComponent<CanoeControls>().longitude;
@@ -73,5 +72,11 @@ public class Orient : MonoBehaviour {
         sun.transform.RotateAround(GameObject.Find("Skybox Camera").transform.position, axis, angle);
         sun.transform.RotateAround(GameObject.Find("Skybox Camera").transform.position, new Vector3(0, 1, 0), Time.deltaTime * Sun.gameHoursPerRealSecond * (float)earthAngularVelocity);
 
+        followPlayer();
+    }
+
+    private void followPlayer() {
+        Vector3 delta = player.transform.position - transform.position;
+        transform.position += delta;
     }
 }

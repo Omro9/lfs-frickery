@@ -8,14 +8,14 @@ using System.IO;
  * Script to instantiate given stars from Yale Bright Star Catalog (BSC5.bytes in Resources folder)
  */
 public class CreateStars : MonoBehaviour {
-    public const int RADIUS = 700;
-
     public bool drawAll;
     public static GameObject star;
 
+    private static GameObject starParent;
     private bool curDrawAllValue;
 
 	void Start () {
+        starParent = new GameObject("Star Parent Object");
         curDrawAllValue = drawAll;
         star = Resources.Load("Star") as GameObject;
         if (drawAll) {
@@ -89,13 +89,14 @@ public class CreateStars : MonoBehaviour {
         float mag = BitConverter.ToInt16(entry, 22) / 100.0F;       // Get brightness magnitude
 
         float x, z, y;                                              // Convert RA and DEC into xyz coordinates
-        x = (float)(RADIUS * Math.Cos(dec) * Math.Cos(ra));
-        z = (float)(RADIUS * Math.Cos(dec) * Math.Sin(ra));
-        y = (float)(RADIUS * Math.Sin(dec));
+        x = (float)(AnimateStar.RADIUS * Math.Cos(dec) * Math.Cos(ra));
+        z = (float)(AnimateStar.RADIUS * Math.Cos(dec) * Math.Sin(ra));
+        y = (float)(AnimateStar.RADIUS * Math.Sin(dec));
 
-        GameObject instance = Instantiate(star);                    // Instantiate star and transform it to correct position/scale
-        instance.transform.position = new Vector3(x, y, z);
-        instance.transform.localScale = instance.transform.localScale * mag;
+        GameObject instance = Instantiate(star);                    // Instantiate star with correct init fields
+        instance.GetComponent<AnimateStar>().luminance = mag;
+        instance.GetComponent<AnimateStar>().position = new Vector3(x, y, z);
+        instance.transform.SetParent(starParent.transform);
         return instance;
     }
 
