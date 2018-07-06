@@ -8,7 +8,7 @@ using UnityEngine;
  */
 public class Sun : MonoBehaviour {
     public static int RADIUS = 200;
-    public const float gameHoursPerRealSecond = 0.1F;
+    public const float gameHoursPerRealSecond = 1F;
     private const float dayNightUpdateFreq = 24F / 300F;   // Number of hours per skybox redraw
 
     private GameObject skyboxCamera;

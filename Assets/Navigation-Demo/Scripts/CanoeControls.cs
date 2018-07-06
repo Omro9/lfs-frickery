@@ -65,7 +65,7 @@ public class CanoeControls : MonoBehaviour
             m_rigidbody.MovePosition(transform.position + (transform.forward * -m_pushForce * Time.deltaTime));
 
             // Adjust rotation based on the angular difference between the controller and the canoe
-            transform.eulerAngles = new Vector3(0f, m_leftController.transform.localRotation.eulerAngles.y, 0f);
+            transform.eulerAngles = Vector3.Lerp(transform.eulerAngles, new Vector3(0f, m_leftController.transform.localRotation.eulerAngles.y, 0f), Time.deltaTime);
         }
     }
 
