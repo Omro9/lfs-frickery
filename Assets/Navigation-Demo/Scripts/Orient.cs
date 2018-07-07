@@ -14,6 +14,7 @@ public class Orient : MonoBehaviour {
 
     private float oldLat, oldLong;
     private Quaternion oldCameraRotation;
+    private Vector3 playerPosition;
 
     // Use this for initialization
     void Start () {
@@ -21,7 +22,8 @@ public class Orient : MonoBehaviour {
         oldLat = 90;    // Initial position of skybox
         oldLong = 0;    // ^
         oldCameraRotation = player.transform.localRotation;
-        sun = GameObject.Find("Sun");
+        //sun = GameObject.Find("Sun");
+        playerPosition = player.transform.position;
     }
 	
 	// Update is called once per frame
@@ -65,18 +67,19 @@ public class Orient : MonoBehaviour {
          * One thing to note: because of the similar radii of our stars and sun, will not get parallax effect
          * of sun passing over stars
          */
-        transform.Rotate(new Vector3(0, 1, 0), Time.deltaTime * Sun.gameHoursPerRealSecond * (float) earthAngularVelocity, Space.World);
+        transform.Rotate(Vector3.up, Time.deltaTime * Sun.gameHoursPerRealSecond * (float) earthAngularVelocity, Space.World);
 
         // Rotate sun object
         // JANK LINES, PROLLY DON'T WORK GOOD
-        sun.transform.RotateAround(GameObject.Find("Skybox Camera").transform.position, axis, angle);
-        sun.transform.RotateAround(GameObject.Find("Skybox Camera").transform.position, new Vector3(0, 1, 0), Time.deltaTime * Sun.gameHoursPerRealSecond * (float)earthAngularVelocity);
+        //sun.transform.RotateAround(GameObject.Find("Skybox Camera").transform.position, axis, angle);
+        //sun.transform.RotateAround(GameObject.Find("Skybox Camera").transform.position, new Vector3(0, 1, 0), Time.deltaTime * Sun.gameHoursPerRealSecond * (float)earthAngularVelocity);
 
         followPlayer();
     }
 
     private void followPlayer() {
-        Vector3 delta = player.transform.position - transform.position;
-        transform.position += delta;
+        Vector3 delta = player.transform.position - playerPosition;
+        transform.Translate(delta);
+        playerPosition = player.transform.position;
     }
 }

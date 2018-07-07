@@ -63,11 +63,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Tex2:
-        m_Texture: {fileID: 8900000, guid: f209e29d9d9a0074784aceb1699a408f, type: 3}
+        m_Texture: {fileID: 8900000, guid: 978794708df85fe44a4c0fdc8d85e06f, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - _BlendCubemaps: 0.65575874
+    - _BlendCubemaps: 0
     - _BumpScale: 1
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
