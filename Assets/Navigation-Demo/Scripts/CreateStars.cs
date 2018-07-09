@@ -16,6 +16,7 @@ public class CreateStars : MonoBehaviour {
 
 	void Start () {
         starParent = new GameObject("Star Parent Object");
+        starParent.transform.SetParent(GameObject.Find("Skybox Objects").transform);
         curDrawAllValue = drawAll;
         star = Resources.Load("Star") as GameObject;
         if (drawAll) {

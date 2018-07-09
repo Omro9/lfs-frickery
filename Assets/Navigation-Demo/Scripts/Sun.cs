@@ -8,7 +8,7 @@ using UnityEngine;
  */
 public class Sun : MonoBehaviour {
     public static int RADIUS = 200;
-    public const float gameHoursPerRealSecond = 1F;
+    public const float gameHoursPerRealSecond = 1 / 2F;
     private const float dayNightUpdateFreq = 24F / 300F;   // Number of hours per skybox redraw
 
     private GameObject skyboxCamera;
@@ -36,7 +36,7 @@ public class Sun : MonoBehaviour {
         player = GameObject.Find("Player");
         timeOfDay = 0F; // Time of day in hours
         transform.position = new Vector3(0f, RADIUS, 0f);
-        oldPosition = transform.position;
+        //oldPosition = transform.position;
         daysSinceCalcDayLength = 31;
     }
 

@@ -19,12 +19,12 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4648309155076134}
-  - component: {fileID: 33206101334177976}
-  - component: {fileID: 23212257068070050}
-  - component: {fileID: 108134086597842602}
   - component: {fileID: 114377045885316016}
   - component: {fileID: 114803266217524242}
+  - component: {fileID: 108134086597842602}
   - component: {fileID: 123401217823261780}
+  - component: {fileID: 33206101334177976}
+  - component: {fileID: 23212257068070050}
   m_Layer: 30
   m_Name: Sun
   m_TagString: Untagged
@@ -51,7 +51,7 @@ MeshRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1711944705257216}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -95,10 +95,10 @@ Light:
   m_GameObject: {fileID: 1711944705257216}
   m_Enabled: 1
   serializedVersion: 8
-  m_Type: 1
+  m_Type: 2
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 1
-  m_Range: 10
+  m_Intensity: 1.7
+  m_Range: 1000
   m_SpotAngle: 30
   m_CookieSize: 10
   m_Shadows:
@@ -146,7 +146,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1565a534192bfc5418b99952fffc495b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  drawAll: 1
+  drawAll: 0
 --- !u!123 &123401217823261780
 LensFlare:
   m_ObjectHideFlags: 1
