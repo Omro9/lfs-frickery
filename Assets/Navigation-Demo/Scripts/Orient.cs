@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-/*
- * Script to orient the skybox camera based upon player's latitude and longitude as well as time of day.
- * Also rotates sun around to simulate day passing
- */
+/// <summary>
+/// Script to orient the skybox camera based upon player's latitude and longitude as well as time of day.
+/// Also rotates sun around to simulate day passing
+/// </summary>
 public class Orient : MonoBehaviour {
     private GameObject player;
     private GameObject sun;
 
-    private const double earthAngularVelocity = 7.2921159D / 100000D * 3600D * Mathf.Rad2Deg;   // In deg/hr
+    public static double earthAngularVelocity = 7.2921159D / 100000D * 3600D * Mathf.Rad2Deg;   // In deg/hr
 
     private float oldLat, oldLong;
     private Quaternion oldCameraRotation;
@@ -27,22 +27,14 @@ public class Orient : MonoBehaviour {
     }
 	
 	// Update is called once per frame
-	void Update () {
-        // Need to take into account initial displacement (i.e. initial lat/long) of starmap_16k
-        // initial displacement:
-        // uses equatorial coordinate system: right ascention given in hours, declination given in degrees
-        // geocentric, so no need to worry about rotation to align with equator
-        // so, initial position of skydome is where north pole is directly above you (aka offset in lat/long of like 90N, 0E)
-
+    void Update () {
         /*
-         * ROTATE BASED ON GLOBAL POSITION
-         * 
-         * This is a vector approach to rotation:
+         * ROTATE BASED ON GLOBAL POSITION:
          *     Find original position vector, find new position vector.
          *     Cross them to find axis of rotation
          *     Use Vector3.SignedAngle() to calculate change in degrees of rotation along axis by which to rotate skybox
          * 
-         * This can probably be run only occasionally, as lat/long won't change significantly frame-to-frame.
+         * This can probably be run only on occasion, as lat/long won't change significantly frame-to-frame.
          */
         float curLat = player.GetComponent<CanoeControls>().latitude;
         float curLong = player.GetComponent<CanoeControls>().longitude;
@@ -62,10 +54,9 @@ public class Orient : MonoBehaviour {
         oldCameraRotation = curCameraRotation;
 
         /*
-         * ROTATE BASED ON TIME OF DAY
-         * 
-         * One thing to note: because of the similar radii of our stars and sun, will not get parallax effect
-         * of sun passing over stars
+         * ROTATE BASED ON TIME OF DAY:
+         *
+         * It's pretty self-explanatory.
          */
         transform.Rotate(Vector3.up, Time.deltaTime * Sun.gameHoursPerRealSecond * (float) earthAngularVelocity, Space.World);
 
@@ -74,10 +65,14 @@ public class Orient : MonoBehaviour {
         //sun.transform.RotateAround(GameObject.Find("Skybox Camera").transform.position, axis, angle);
         //sun.transform.RotateAround(GameObject.Find("Skybox Camera").transform.position, new Vector3(0, 1, 0), Time.deltaTime * Sun.gameHoursPerRealSecond * (float)earthAngularVelocity);
 
-        followPlayer();
+        FollowPlayer();
     }
 
-    private void followPlayer() {
+    /// <summary>
+    /// <para>Have GameObject follow position of player. Object is not made a child of player to preserve the object's rotation.</para>
+    /// Probably should make parent class, as this method is shared among Moon.cs, Sun.cs, and(to an extent) in Orient.cs.
+    /// </summary>
+    private void FollowPlayer() {
         Vector3 delta = player.transform.position - playerPosition;
         transform.Translate(delta);
         playerPosition = player.transform.position;
