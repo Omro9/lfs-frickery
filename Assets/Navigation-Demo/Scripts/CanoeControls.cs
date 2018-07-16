@@ -4,6 +4,9 @@
 // that includes testing on desktop or in a VR space
 public class CanoeControls : MonoBehaviour
 {
+    private const int SCALE = 2000; // Scale of 2000 brings the canoe to about 20ft long, is that right?
+                                    // Feels more realistic to me at around 1200 factor
+
     // Mode is the type of controls the the player will use
     // Computer - desktop gameplay WASD controls for testing and audio is through the computer
     // VR_Simple - Point and click to go for testing and audio is through the Vive headset
@@ -21,12 +24,12 @@ public class CanoeControls : MonoBehaviour
 
     // Begin skybox variable additions
     private const float globalVelocity = 0.15F; // PLACEHOLDER angular velocity in radians/frame
-    private Vector3 globalPosition = new Vector3(0, 0, 0);  // x represents latitude, z represents longitude
-    public float latitude
+    private Vector3 globalPosition = new Vector3(13F, 0, 144F);  // x represents latitude, z represents longitude
+    public float Latitude
     {
         get { return globalPosition.x; }
     }
-    public float longitude
+    public float Longitude
     {
         get { return globalPosition.z; }
     }
