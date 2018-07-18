@@ -21,8 +21,8 @@ GameObject:
   - component: {fileID: 4648309155076134}
   - component: {fileID: 114377045885316016}
   - component: {fileID: 114803266217524242}
+  - component: {fileID: 114805253116748796}
   - component: {fileID: 108134086597842602}
-  - component: {fileID: 114693808383729422}
   - component: {fileID: 212399352259412272}
   m_Layer: 30
   m_Name: Sun
@@ -39,7 +39,7 @@ Transform:
   m_GameObject: {fileID: 1711944705257216}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: -69.05063, y: 100, z: -5.4460564}
-  m_LocalScale: {x: 1.578, y: 1.578, z: 1.578}
+  m_LocalScale: {x: 3.578, y: 3.578, z: 3.578}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -88,11 +88,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1711944705257216}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa76139b88307f640b6c4b2e45ca34f4, type: 3}
+  m_Script: {fileID: 11500000, guid: ebe0cff770d584b4c93cfca6e1476874, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameHoursPerRealSecond: 0.5
   julianDate: -1
---- !u!114 &114693808383729422
+  localTimeOfDay: 0
+--- !u!114 &114803266217524242
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -103,7 +105,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7597273ecca74dcd85923685d0cb6c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114803266217524242
+--- !u!114 &114805253116748796
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -111,7 +113,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1711944705257216}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1565a534192bfc5418b99952fffc495b, type: 3}
+  m_Script: {fileID: 11500000, guid: bb45ffeca5d00447c9f1f5ab63287675, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   drawAll: 0

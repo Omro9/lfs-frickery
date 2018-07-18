@@ -20,6 +20,8 @@ public class CanoeControls : MonoBehaviour
     private Vector3 m_eulerAngleVelocity = new Vector3(0, 8f, 0);
     private Rigidbody m_rigidbody;
 
+    private Animator anim;
+
     private float m_pushForce = 10f;
 
     // Begin skybox variable additions
@@ -38,6 +40,7 @@ public class CanoeControls : MonoBehaviour
     void Start()
     {
         m_rigidbody = GetComponent<Rigidbody>();
+        anim = GetComponentInChildren<Animator>();
     }
 
     void Update()
@@ -82,12 +85,14 @@ public class CanoeControls : MonoBehaviour
         if (Input.GetKey(KeyCode.W))
         {
             m_rigidbody.MovePosition(transform.position + (transform.forward * -m_pushForce * Time.deltaTime));
+            anim.Play("Forward");
             Vector3 deltaPosition = transform.forward * -globalVelocity * Time.deltaTime;
             globalPosition += deltaPosition;
         }
         if (Input.GetKey(KeyCode.S))
         {
             m_rigidbody.MovePosition(transform.position + (transform.forward * m_pushForce * Time.deltaTime));
+            anim.Play("Reverse");
             Vector3 deltaPosition = transform.forward * globalVelocity * Time.deltaTime;
             globalPosition += deltaPosition;
         }
