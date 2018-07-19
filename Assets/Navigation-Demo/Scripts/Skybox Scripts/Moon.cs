@@ -18,14 +18,17 @@ public class Moon : MonoBehaviour {
                                                    Vector3.forward).normalized;
 
     private float gamma;    // Angle of rotation around Earth in degrees.
+    private float deltaGamma;
     private Vector3 playerPosition;
     private GameObject player;
     private GameObject sun;
+    private SpriteRenderer spRend;
 
 	// Use this for initialization
 	void Start () {
         player = GameObject.Find("Player");
         sun = GameObject.Find("Sun");
+        spRend = GetComponent<SpriteRenderer>();
         playerPosition = player.transform.position;
         transform.position = RADIUS * new Vector3(Mathf.Cos(orbitalInclinationFromEquator),
                                                   Mathf.Sin(orbitalInclinationFromEquator),
@@ -43,6 +46,7 @@ public class Moon : MonoBehaviour {
                                                                                         //  (Jan 17, 2018) divided by synodic month
         float initRotation = (numNewMoons - Mathf.Floor(numNewMoons)) * 360; // Rotation in deg from new moon position
         transform.Rotate(orbitalPlane, initRotation); // Rotate moon to be at correct rotation dictated by JD
+        gamma = initRotation;
     }
 	
 	// Update is called once per frame
@@ -51,16 +55,27 @@ public class Moon : MonoBehaviour {
         //Debug.Log("\nNorth: " + sun.GetComponent<SkyboxController>().North);
         Quaternion rotateToNorth = Quaternion.FromToRotation(Vector3.up, sun.GetComponent<SkyboxController>().North);
         Vector3 orbitalPlaneRelativeToNorth = rotateToNorth * orbitalPlane;
-        transform.RotateAround(playerPosition,
-                               orbitalPlaneRelativeToNorth,
-                               Time.deltaTime * sun.GetComponent<Sun>().gameHoursPerRealSecond * angularVelocity);
+        float rotation = Time.deltaTime * sun.GetComponent<Sun>().gameHoursPerRealSecond * angularVelocity;
+        transform.RotateAround(playerPosition, orbitalPlaneRelativeToNorth, rotation);
+        gamma = (gamma + rotation) % 360F;
+        deltaGamma += rotation;
 
         // Rotate by time of day
         transform.RotateAround(playerPosition,
                                sun.GetComponent<SkyboxController>().North,
                                (float) (Time.deltaTime * sun.GetComponent<Sun>().gameHoursPerRealSecond * Sun.earthAngularVelocity));
+        if (deltaGamma > 1F)
+            UpdatePhase();
         FollowPlayer();
 	}
+
+    private void UpdatePhase() {
+        string spriteName = ((int) gamma).ToString().PadLeft(3).Replace(' ', '0');
+        Sprite newPhase = Resources.Load<Sprite>("Lunar Phases/" + spriteName);
+        spRend.sprite = newPhase;
+        Debug.Log(spriteName + "\t" + newPhase);
+        deltaGamma = 0F;
+    }
 
     /// <summary>
     /// <para>Have GameObject follow position of player. Object is not made a child of player to preserve the object's rotation.</para>
