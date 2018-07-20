@@ -7,6 +7,7 @@ using UnityEngine;
 /// </summary>
 public class Moon : MonoBehaviour {
     public static int RADIUS = 100;
+    private const float earthCenterOffset = 1.658F; // At radius of 100, Earth's center is this many units below the player (pretty negligable)
     private const double SCALE = 0.87;   // Scale factor calculated from https://en.wikipedia.org/wiki/Angular_diameter
     private const float angularVelocity = 360F / 29.53F / 24F; // In deg/hour, using synodic lunar month
     private const float orbitalInclinationFromEquator = (23.4F + 5.145F) * Mathf.Deg2Rad;
@@ -45,7 +46,7 @@ public class Moon : MonoBehaviour {
         float numNewMoons = (float) ((sun.GetComponent<Sun>().JD - 2458136) / 29.53D);  // Time since last new moon in Guam 
                                                                                         //  (Jan 17, 2018) divided by synodic month
         float initRotation = (numNewMoons - Mathf.Floor(numNewMoons)) * 360F; // Rotation in deg from new moon position
-        transform.RotateAround(playerPosition, orbitalPlane, initRotation); // Rotate moon to be at correct rotation dictated by JD
+        transform.RotateAround(playerPosition + new Vector3(0, -earthCenterOffset, 0), orbitalPlane, initRotation); // Rotate moon to be at correct rotation dictated by JD
         gamma = initRotation;
     }
 	
@@ -76,7 +77,7 @@ public class Moon : MonoBehaviour {
         string spriteName = ((int)gamma).ToString();//.PadLeft(3).Replace(' ', '0');
         Sprite newPhase = Resources.Load<Sprite>("trans_images/trans_" + spriteName);
         spRend.sprite = newPhase;
-        Debug.Log(spriteName + "\t" + newPhase);
+        //Debug.Log(spriteName + "\t" + newPhase);
         deltaGamma = 0F;
     }
 
@@ -89,6 +90,6 @@ public class Moon : MonoBehaviour {
         Vector3 delta = player.transform.position - playerPosition;
         transform.Translate(delta);
         playerPosition = player.transform.position;
-        transform.LookAt(player.transform);
+        transform.LookAt(playerPosition, transform.position.normalized - SkyboxController.North);
     }
 }
