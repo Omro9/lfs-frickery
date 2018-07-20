@@ -20,8 +20,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4506144449908340}
   - component: {fileID: 114553627119439066}
-  - component: {fileID: 114586998754425566}
-  - component: {fileID: 114142114087454504}
   - component: {fileID: 108741683576929006}
   - component: {fileID: 212332209572102280}
   m_Layer: 30
@@ -57,9 +55,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4090049246015114}
   - component: {fileID: 114184104630677224}
-  - component: {fileID: 114136393636667932}
+  - component: {fileID: 114785969317253932}
   m_Layer: 0
-  m_Name: Skybox Objects
+  m_Name: Skybox Objects 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -153,37 +151,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab0bf2f77e434413394020e49c8aafe5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114136393636667932
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1760353983085214}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb45ffeca5d00447c9f1f5ab63287675, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  drawAll: 0
---- !u!114 &114142114087454504
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1182712128173764}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb45ffeca5d00447c9f1f5ab63287675, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  drawAll: 0
 --- !u!114 &114184104630677224
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1760353983085214}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e7597273ecca74dcd85923685d0cb6c8, type: 3}
   m_Name: 
@@ -202,17 +176,18 @@ MonoBehaviour:
   gameHoursPerRealSecond: 0.5
   julianDate: -1
   localTimeOfDay: 0
---- !u!114 &114586998754425566
+--- !u!114 &114785969317253932
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1182712128173764}
+  m_GameObject: {fileID: 1760353983085214}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e7597273ecca74dcd85923685d0cb6c8, type: 3}
+  m_Script: {fileID: 11500000, guid: c5c0679374c88442497451a9b0555da2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  drawAll: 0
 --- !u!212 &212225430581198780
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -44,8 +44,8 @@ public class Moon : MonoBehaviour {
         // Find progress of moon in orbit. Calculations from https://www.subsystems.us/uploads/9/8/9/4/98948044/moonphase.pdf
         float numNewMoons = (float) ((sun.GetComponent<Sun>().JD - 2458136) / 29.53D);  // Time since last new moon in Guam 
                                                                                         //  (Jan 17, 2018) divided by synodic month
-        float initRotation = (numNewMoons - Mathf.Floor(numNewMoons)) * 360; // Rotation in deg from new moon position
-        transform.Rotate(orbitalPlane, initRotation); // Rotate moon to be at correct rotation dictated by JD
+        float initRotation = (numNewMoons - Mathf.Floor(numNewMoons)) * 360F; // Rotation in deg from new moon position
+        transform.RotateAround(playerPosition, orbitalPlane, initRotation); // Rotate moon to be at correct rotation dictated by JD
         gamma = initRotation;
     }
 	
@@ -53,7 +53,7 @@ public class Moon : MonoBehaviour {
 	void Update () {
         // Rotate by moon's sydonic orbit
         //Debug.Log("\nNorth: " + sun.GetComponent<SkyboxController>().North);
-        Quaternion rotateToNorth = Quaternion.FromToRotation(Vector3.up, sun.GetComponent<SkyboxController>().North);
+        Quaternion rotateToNorth = Quaternion.FromToRotation(Vector3.up, SkyboxController.North);
         Vector3 orbitalPlaneRelativeToNorth = rotateToNorth * orbitalPlane;
         float rotation = Time.deltaTime * sun.GetComponent<Sun>().gameHoursPerRealSecond * angularVelocity;
         transform.RotateAround(playerPosition, orbitalPlaneRelativeToNorth, rotation);
@@ -62,16 +62,19 @@ public class Moon : MonoBehaviour {
 
         // Rotate by time of day
         transform.RotateAround(playerPosition,
-                               sun.GetComponent<SkyboxController>().North,
+                               SkyboxController.North,
                                (float) (Time.deltaTime * sun.GetComponent<Sun>().gameHoursPerRealSecond * Sun.earthAngularVelocity));
         if (deltaGamma > 1F)
             UpdatePhase();
         FollowPlayer();
 	}
 
+    /// <summary>
+    /// Update sprite of moon to reflect correct phase. Sprites taken from http://www.neoprogrammics.com/lunar_phase_images/
+    /// </summary>
     private void UpdatePhase() {
-        string spriteName = ((int) gamma).ToString().PadLeft(3).Replace(' ', '0');
-        Sprite newPhase = Resources.Load<Sprite>("Lunar Phases/" + spriteName);
+        string spriteName = ((int)gamma).ToString();//.PadLeft(3).Replace(' ', '0');
+        Sprite newPhase = Resources.Load<Sprite>("trans_images/trans_" + spriteName);
         spRend.sprite = newPhase;
         Debug.Log(spriteName + "\t" + newPhase);
         deltaGamma = 0F;

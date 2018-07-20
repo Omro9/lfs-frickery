@@ -41,7 +41,7 @@
       
              float4 TriAxisRotateInDegrees (float4 vertex, float xDegrees, float yDegrees, float zDegrees)
              {
-                 float4 progVertex = vertex;
+                 float4 progVert = vertex;
                  float alpha = xDegrees * UNITY_PI / 180.0;
                  float beta = yDegrees * UNITY_PI / 180.0;
                  float gamma = zDegrees * UNITY_PI / 180.0;
@@ -50,21 +50,21 @@
                  float sing, cosg;
                  sincos(gamma, sing, cosg);
                  float3x3 zMat = float3x3(cosg, 0, sing, 0, 1, 0, -sing, 0, cosg);
-                 progVertex = float4(mul(zMat, progVertex.xzy), progVertex.w).xzyw;
+                 progVert = float4(mul(zMat, progVert.xzy), progVert.w).xzyw;
 
                  // X-axis rotation
                  float sina, cosa;
                  sincos(alpha, sina, cosa);
                  float3x3 xMat = float3x3(1, 0, 0, 0, cosa, -sina, 0, sina, cosa);
-                 progVertex = float4(mul(xMat, progVertex.xzy), progVertex.w).xzyw;
+                 progVert = float4(mul(xMat, progVert.xzy), progVert.w).xzyw;
 
                  // Y-axis (unity) rotation
                  float sinb, cosb;
                  sincos(beta, sinb, cosb);
                  float3x3 yMat = float3x3(cosb, -sinb, 0, sinb, cosb, 0, 0, 0, 1);
-                 progVertex = float4(mul(yMat, progVertex.xzy), progVertex.w).xzyw;
+                 progVert = float4(mul(yMat, progVert.xzy), progVert.w).xzyw;
 
-                 return progVertex;
+                 return progVert;
              }
           
              struct appdata_t {
@@ -88,7 +88,7 @@
              fixed4 frag (v2f i) : SV_Target
              {
                  float4 env1 = texCUBE (_Tex, i.texcoord);
-                 float4 env2 = texCUBE (_Tex2, i.texcoord);
+                 float4 env2 = texCUBE (_Tex2, i.texcoord); 
                  float4 env = lerp( env2, env1, _BlendCubemaps );
                  float4 tint = lerp( _Tint, _Tint2, _BlendCubemaps );
                  half3 c = DecodeHDR (env, _Tex_HDR);

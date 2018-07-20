@@ -44,7 +44,7 @@ public class AnimateStar : MonoBehaviour {
         transform.localScale = initScale * scaleFactor * daytimeScaleEffect;
 
         transform.RotateAround(playerPosition,
-                               sun.GetComponent<SkyboxController>().North,
+                               SkyboxController.North,
                                (float) (Time.deltaTime * sun.GetComponent<Sun>().gameHoursPerRealSecond * Sun.earthAngularVelocity));
 
         FollowPlayer();

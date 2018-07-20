@@ -122,7 +122,7 @@ public class Sun : MonoBehaviour {
                                     + Mathf.Cos(dec) * Mathf.Cos(playerLatRads) * Mathf.Cos(localHourAngle));
         //Debug.Log("\nAltitude:\t" + altitude * Mathf.Rad2Deg + "\t\tAzimuth:\t" + azimuth * Mathf.Rad2Deg);
 
-        Vector3 north = Vector3.ProjectOnPlane(this.GetComponent<SkyboxController>().North, Vector3.up); // North vector projected onto xz plane
+        Vector3 north = Vector3.ProjectOnPlane(SkyboxController.North, Vector3.up); // North vector projected onto xz plane
         azimuth += Vector3.Angle(Vector3.forward, north) * Mathf.Deg2Rad;   // Adjust azimuth to be aligned with current North
         float horiX = RADIUS * Mathf.Sin(azimuth) * Mathf.Cos(altitude);
         float horiY = RADIUS * Mathf.Sin(altitude);
@@ -130,7 +130,9 @@ public class Sun : MonoBehaviour {
         Vector3 newPosition = new Vector3(horiX, horiY, horiZ);
 
         transform.position = newPosition + playerPosition;  // This line seems kind of redundant with FollowPlayer(), can organize better
-        GetComponent<SkyboxController>().BlendSkyboxes(altitude * Mathf.Rad2Deg);   // Update skybox alpha blending
+
+        SkyboxController.BlendSkyboxes(altitude * Mathf.Rad2Deg);   // Update skybox alpha blending
+        SkyboxController.SetDayTexTint(altitude * Mathf.Rad2Deg);   // Tint sky for sunset/-rise
     }
 
     /// <summary>

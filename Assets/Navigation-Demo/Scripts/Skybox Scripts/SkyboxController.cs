@@ -6,11 +6,15 @@ public class SkyboxController : MonoBehaviour
     private GameObject player;
     private GameObject sun;
     private Material skybox;
-    private Transform rotationRef;
+    private static Transform rotationRef;
     public Transform Transform {
         get { return rotationRef; }
     }
-    public Vector3 North {
+    /// <summary>
+    /// Vector along Earth's orbital axis pointing North, in world space
+    /// </summary>
+    /// <value>The North vector.</value>
+    public static Vector3 North {
         get { return rotationRef.up.normalized; }
     }
 
@@ -30,6 +34,8 @@ public class SkyboxController : MonoBehaviour
 
         playerLat = 90;    // Initial position of skybox, or, the point on the skydome directly above one's head at the north pole
         playerLong = 0;
+
+        StarInstancer.CreateFromFile("big_dipper.txt");
     }
 
     // Update is called once per frame
@@ -51,21 +57,29 @@ public class SkyboxController : MonoBehaviour
         skybox.SetFloat("_XRotation", eulerAngles.x);
         skybox.SetFloat("_YRotation", eulerAngles.y);
         skybox.SetFloat("_ZRotation", eulerAngles.z);
-
-        // Update alpha blending on time of day
-        //BlendSkyboxes();
     }
 
     /// <summary>
     /// Updates skybox's alpha blending of day/night skies based on sun's altitude
     /// </summary>
     /// <param name="altitude">Altitude of sun.</param>
-    public void BlendSkyboxes(float altitude)
+    public static void BlendSkyboxes(float altitude)
     {
         if (altitude >= 0)
             RenderSettings.skybox.SetFloat("_BlendCubemaps", 0.5F + (altitude / 90F * 0.5F));
         else
             RenderSettings.skybox.SetFloat("_BlendCubemaps", 0.5F - (altitude / -70F * 0.5F));
+    }
+
+    public static void SetDayTexTint(float altitude) {
+        Color eveTint = Color.Lerp(Color.grey, 0.9F * (0.63F * Color.red + 0.37F * Color.yellow), 
+                                   Mathf.Pow(1 - Mathf.Abs(altitude) / 85F, 3));
+        RenderSettings.skybox.SetColor("_Tint", eveTint);
+    }
+
+    public static void SetNightTexTint(Color tint)
+    {
+        RenderSettings.skybox.SetColor("_Tint2", tint);
     }
 
     /// <summary>
