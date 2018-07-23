@@ -30,6 +30,7 @@ public class Moon : MonoBehaviour {
         player = GameObject.Find("Player");
         sun = GameObject.Find("Sun");
         spRend = GetComponent<SpriteRenderer>();
+        spRend.material.renderQueue = 1501; // Put in back half of background (but rendered after sun)
         playerPosition = player.transform.position;
         transform.position = RADIUS * new Vector3(Mathf.Cos(orbitalInclinationFromEquator),
                                                   Mathf.Sin(orbitalInclinationFromEquator),

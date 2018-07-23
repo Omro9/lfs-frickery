@@ -34,6 +34,7 @@ public class Sun : MonoBehaviour {
 
     void Start()
     {
+        GetComponent<SpriteRenderer>().material.renderQueue = 1500; // Put in back half of background layer
         player = GameObject.Find("Player");
         playerPosition = player.transform.position;
 

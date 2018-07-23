@@ -2,14 +2,17 @@
     Properties {
         _ColorMap ("Color Map", 2D) = "color" {}
         _HeightMap ("Height Map", 2D) = "height" {}
+        _AlphaCutoff ("Alpha Cutoff" , float) = 0.5
     }
     SubShader {
-        Tags { "RenderType"="Opaque" }
+        Tags {  "Queue"="Transparent"
+                "RenderType"="Transparent" }
         LOD 200
+
 
         CGPROGRAM
         // Physically based Standard lighting model, and enable shadows on all light types
-        #pragma surface surf Standard
+        #pragma surface surf Standard alphaTest:_AlphaCutoff alpha:fade
 
         // Use shader model 3.0 target, to get nicer looking lighting
         #pragma target 3.0
@@ -29,9 +32,8 @@
             fixed4 height = tex2D(_HeightMap, flip_uv); // height.xyzw
             height *= 4.0;
             float h = height.r;
-            
-            if (h <= 0) { h = 0.001; }
-            if (h >= 1) { h = 0.999; }
+
+            h = clamp(h, 0.001, 0.999);
 
             fixed4 c = tex2D(_ColorMap, float2(0, h));
 
