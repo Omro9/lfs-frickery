@@ -19,12 +19,13 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _ColorMap:
-        m_Texture: {fileID: 2800000, guid: 173021f50beb0d14582d97de8c141edb, type: 3}
+        m_Texture: {fileID: 2800000, guid: 990032c84cda04f5b86acb95ec6e7823, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _HeightMap:
         m_Texture: {fileID: 2800000, guid: 4b26a9768b24ef34b940653ae5e43a5d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    m_Floats: []
+    m_Floats:
+    - _AlphaCutoff: 0.5
     m_Colors: []

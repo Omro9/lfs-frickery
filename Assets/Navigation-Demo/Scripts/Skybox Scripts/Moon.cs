@@ -7,10 +7,11 @@ using UnityEngine;
 /// </summary>
 public class Moon : MonoBehaviour {
     public static int RADIUS = 100;
-    private const float earthCenterOffset = 1.658F; // At radius of 100, Earth's center is this many units below the player (pretty negligable)
+    private const float earthCenterOffsetMeters = 1.658F; // At radius of 100, Earth's center is this many units below the player (pretty negligable)
     private const double SCALE = 0.87;   // Scale factor calculated from https://en.wikipedia.org/wiki/Angular_diameter
     private const float angularVelocity = 360F / 29.53F / 24F; // In deg/hour, using synodic lunar month
     private const float orbitalInclinationFromEquator = (23.4F + 5.145F) * Mathf.Deg2Rad;
+    private readonly Vector3 earthCenterOffset = new Vector3(0, -earthCenterOffsetMeters, 0);
 
     // Vector defining orbital plane
     private Vector3 orbitalPlane = Vector3.Cross(new Vector3(Mathf.Cos(orbitalInclinationFromEquator),
@@ -44,10 +45,10 @@ public class Moon : MonoBehaviour {
         transform.position = sunProj.normalized * RADIUS;
 
         // Find progress of moon in orbit. Calculations from https://www.subsystems.us/uploads/9/8/9/4/98948044/moonphase.pdf
-        float numNewMoons = (float) ((sun.GetComponent<Sun>().JD - 2458136) / 29.53D);  // Time since last new moon in Guam 
+        float numNewMoons = (float) ((Sun.JD - 2458136) / 29.53D);  // Time since last new moon in Guam 
                                                                                         //  (Jan 17, 2018) divided by synodic month
         float initRotation = (numNewMoons - Mathf.Floor(numNewMoons)) * 360F; // Rotation in deg from new moon position
-        transform.RotateAround(playerPosition + new Vector3(0, -earthCenterOffset, 0), orbitalPlane, initRotation); // Rotate moon to be at correct rotation dictated by JD
+        transform.RotateAround(playerPosition + earthCenterOffset, orbitalPlane, initRotation); // Rotate moon to be at correct rotation dictated by JD
         gamma = initRotation;
     }
 	
@@ -57,15 +58,15 @@ public class Moon : MonoBehaviour {
         //Debug.Log("\nNorth: " + sun.GetComponent<SkyboxController>().North);
         Quaternion rotateToNorth = Quaternion.FromToRotation(Vector3.up, SkyboxController.North);
         Vector3 orbitalPlaneRelativeToNorth = rotateToNorth * orbitalPlane;
-        float rotation = Time.deltaTime * sun.GetComponent<Sun>().gameHoursPerRealSecond * angularVelocity;
-        transform.RotateAround(playerPosition, orbitalPlaneRelativeToNorth, rotation);
+        float rotation = Time.deltaTime * Sun.gameHoursPerRealSecond * angularVelocity;
+        transform.RotateAround(playerPosition + earthCenterOffset, orbitalPlaneRelativeToNorth, rotation);
         gamma = (gamma + rotation) % 360F;
         deltaGamma += rotation;
 
         // Rotate by time of day
-        transform.RotateAround(playerPosition,
+        transform.RotateAround(playerPosition + earthCenterOffset,
                                SkyboxController.North,
-                               (float) (Time.deltaTime * sun.GetComponent<Sun>().gameHoursPerRealSecond * Sun.earthAngularVelocity));
+                               (float) (Time.deltaTime * Sun.gameHoursPerRealSecond * Sun.earthAngularVelocity));
         if (deltaGamma > 1F)
             UpdatePhase();
         FollowPlayer();

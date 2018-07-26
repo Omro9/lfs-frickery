@@ -17,23 +17,25 @@ public class CanoeControls : MonoBehaviour
     public SteamVR_TrackedController m_leftController;
     public SteamVR_TrackedController m_rightController;
 
-    private Vector3 m_eulerAngleVelocity = new Vector3(0, 8f, 0);
+    private const float m_pushForce = 10f;
+    private readonly Vector3 m_eulerAngleVelocity = new Vector3(0, 8f, 0);
     private Rigidbody m_rigidbody;
 
+    private Camera eyeCamera;
     private Animator anim;
-
-    private float m_pushForce = 10f;
+    private Canvas clockUI;
+    private const float uiControllerDistance = 0.25F;
 
     // Begin skybox variable additions
-    private const float globalVelocity = 0.15F; // PLACEHOLDER angular velocity in radians/frame
-    private Vector3 globalPosition = new Vector3(13F, 0, 144F);  // x represents latitude, z represents longitude
+    private const float globalVelocity = 0.03F; // PLACEHOLDER angular velocity in radians/meter traveled
+    private Vector3 globalPosition = new Vector3(144F, 0, 13F);  // z represents latitude, x represents longitude. AKA z is ~North
     public float Latitude
     {
-        get { return globalPosition.x; }
+        get { return globalPosition.z; }
     }
     public float Longitude
     {
-        get { return globalPosition.z; }
+        get { return globalPosition.x; }
     }
     // End skybox variable additions
 
@@ -41,6 +43,10 @@ public class CanoeControls : MonoBehaviour
     {
         m_rigidbody = GetComponent<Rigidbody>();
         anim = GetComponentInChildren<Animator>();
+        eyeCamera = Camera.main;
+        clockUI = Instantiate(Resources.Load<Canvas>("Worldspace UI"));
+        clockUI.worldCamera = eyeCamera;
+        clockUI.enabled = false;
     }
 
     void Update()
@@ -68,11 +74,32 @@ public class CanoeControls : MonoBehaviour
         if (m_leftController.triggerPressed)
         {
             // Adjust position
-            m_rigidbody.MovePosition(transform.position + (transform.forward * -m_pushForce * Time.deltaTime));
+            Vector3 deltaPosition = transform.forward * m_pushForce * Time.deltaTime;
+            m_rigidbody.MovePosition(transform.position + deltaPosition);
+
+            // Register change in lat/long
+            deltaPosition = new Vector3(deltaPosition.x, 0, deltaPosition.z).normalized * globalVelocity;
+            globalPosition += deltaPosition;
 
             // Adjust rotation based on the angular difference between the controller and the canoe
             transform.eulerAngles = Vector3.Lerp(transform.eulerAngles, new Vector3(0f, m_leftController.transform.localRotation.eulerAngles.y, 0f), Time.deltaTime);
+
+            if (Vector3.Angle(transform.eulerAngles, new Vector3(0f, m_leftController.transform.localRotation.eulerAngles.y, 0f)) < 0)
+                anim.Play("Forward");
+            else anim.Play("Reverse");
         }
+
+        // Show timeofday ui
+        if (m_rightController.gripped) {
+            string timeFormatted = Sun.GetTimeOfDayFormatted();
+            clockUI.GetComponentInChildren<UnityEngine.UI.Text>().text = timeFormatted;
+
+            clockUI.transform.position = m_rightController.transform.position + m_rightController.transform.forward * uiControllerDistance;
+            clockUI.transform.LookAt(eyeCamera.transform, Vector3.up);
+            clockUI.transform.Rotate(clockUI.transform.up * 180F);
+            clockUI.enabled = true;
+        }
+        else clockUI.enabled = false;
     }
 
     private void KeyboardNavigation()
@@ -107,5 +134,16 @@ public class CanoeControls : MonoBehaviour
             Quaternion deltaRotation = Quaternion.Euler(m_eulerAngleVelocity * Time.deltaTime * 10f);
             m_rigidbody.MoveRotation(m_rigidbody.rotation * deltaRotation);
         }
+        if (Input.GetKey(KeyCode.F))
+        {
+            string timeFormatted = Sun.GetTimeOfDayFormatted();
+            clockUI.GetComponentInChildren<UnityEngine.UI.Text>().text = timeFormatted;
+
+            clockUI.transform.position = eyeCamera.transform.position + eyeCamera.transform.forward * uiControllerDistance;//targetCamera.transform.TransformPoint(uiControllerDistance);
+            clockUI.transform.LookAt(eyeCamera.transform);
+            clockUI.transform.Rotate(Vector3.up * 180F);
+            clockUI.enabled = true;
+        }
+        else clockUI.enabled = false;
     }
 }

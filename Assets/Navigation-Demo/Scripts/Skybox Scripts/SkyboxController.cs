@@ -4,7 +4,6 @@ using System.Collections;
 public class SkyboxController : MonoBehaviour
 {
     private GameObject player;
-    private GameObject sun;
     private Material skybox;
     private static Transform rotationRef;
     public Transform Transform {
@@ -28,7 +27,6 @@ public class SkyboxController : MonoBehaviour
     void Start()
     {
         player = GameObject.Find("Player");
-        sun = GameObject.Find("Sun");
         skybox = RenderSettings.skybox;
         rotationRef = new GameObject("Skybox Rotation Reference").transform;
 
@@ -36,6 +34,19 @@ public class SkyboxController : MonoBehaviour
         playerLong = 0;
 
         StarInstancer.CreateFromFile("big_dipper.txt");
+        Update();
+
+        // Rotate islands around
+        // Or not, because apparently terrain is static
+        /*
+        Vector3 northProj = Vector3.ProjectOnPlane(SkyboxController.North, Vector3.up).normalized;
+        float rotation = Vector3.Angle(Vector3.forward, northProj);
+        Transform islands = GameObject.Find("Islands").transform;
+        for (int i = 0; i < islands.childCount; ++i) {
+            Transform island = islands.GetChild(i);
+            island.RotateAround(Vector3.zero, Vector3.up, rotation);   // Islands should be initially oriented as if z-axis were North
+        }  
+        */
     }
 
     // Update is called once per frame
@@ -49,7 +60,7 @@ public class SkyboxController : MonoBehaviour
         playerLong = player.GetComponent<CanoeControls>().Longitude;
 
         // Update model's rotation on time of day
-        rotationRef.Rotate(Vector3.up, (float) (Time.deltaTime * sun.GetComponent<Sun>().gameHoursPerRealSecond * Sun.earthAngularVelocity), Space.Self);
+        rotationRef.Rotate(Vector3.up, (float) (Time.deltaTime * Sun.gameHoursPerRealSecond * Sun.earthAngularVelocity), Space.Self);
 
         // Apply rotation from model
         Vector3 eulerAngles = -rotationRef.localEulerAngles;
@@ -88,7 +99,7 @@ public class SkyboxController : MonoBehaviour
     /// </summary>
     private void BlendSkyboxes() {
         float alphaBlend;
-        float t = (float)sun.GetComponent<Sun>().TimeOfDay;
+        float t = (float) Sun.TimeOfDay;
 
         if (t < 12F)
         {  // These conditionals are a naive way to apply, then reverse the easing function

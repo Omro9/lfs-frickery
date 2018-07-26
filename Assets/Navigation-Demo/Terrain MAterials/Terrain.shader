@@ -2,23 +2,24 @@
     Properties {
         _ColorMap ("Color Map", 2D) = "color" {}
         _HeightMap ("Height Map", 2D) = "height" {}
-        _AlphaCutoff ("Alpha Cutoff" , float) = 0.5
+        _AlphaCutoff ("Alpha Cutoff", Range(0, 1)) = 0.5
     }
     SubShader {
-        Tags {  "Queue"="Transparent"
+        Tags {  "Queue"="Transparent"   // Must be in transparent queue to avoid clipping other meshes' surfaces
                 "RenderType"="Transparent" }
         LOD 200
 
 
         CGPROGRAM
         // Physically based Standard lighting model, and enable shadows on all light types
-        #pragma surface surf Standard alphaTest:_AlphaCutoff alpha:fade
+        #pragma surface surf Standard
 
         // Use shader model 3.0 target, to get nicer looking lighting
         #pragma target 3.0
 
         sampler2D _ColorMap;
         sampler2D _HeightMap;
+        float _AlphaCutoff;
 
         struct Input {
             float2 uv_HeightMap; 
@@ -36,9 +37,10 @@
             h = clamp(h, 0.001, 0.999);
 
             fixed4 c = tex2D(_ColorMap, float2(0, h));
+            clip(c.a - _AlphaCutoff);   // Clip surface if above alpha threshold
 
             o.Albedo = c.rgb;
-            o.Alpha = c.a;
+            o.Alpha = c.a;  // Doesn't affect transparency
         }
         ENDCG
     }

@@ -18,14 +18,12 @@ public class AnimateStar : MonoBehaviour {
     //public static Vector3 initScale;
     public Vector3 initScale;
 
-    private GameObject sun;
     private GameObject player;
     private Vector3 playerPosition;
     private float t;
 
 	// Use this for initialization
 	void Start () {
-        sun = GameObject.Find("Sun");
         player = GameObject.Find("Player");
         playerPosition = player.transform.position;
         transform.position = position;
@@ -45,8 +43,8 @@ public class AnimateStar : MonoBehaviour {
 
         transform.RotateAround(playerPosition,
                                SkyboxController.North,
-                               (float) (Time.deltaTime * sun.GetComponent<Sun>().gameHoursPerRealSecond * Sun.earthAngularVelocity));
-
+                               (float) (Time.deltaTime * Sun.gameHoursPerRealSecond * Sun.earthAngularVelocity));
+        
         FollowPlayer();
 	}
 

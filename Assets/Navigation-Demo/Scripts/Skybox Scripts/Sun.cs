@@ -3,31 +3,33 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Script to handle motion of sun relative to Earth. Also contains variables such as time multiplier and 
-/// in-game time of day
+/// <para>Script to handle motion of sun relative to Earth. Also contains variables such as time multiplier and 
+/// in-game time of day</para>
+/// Many fields are marked static to avoid constantly searching for the "Sun" GameObject; however, this may
+/// not be good practice. Perhaps it would be better to break this script up into a sun "controller" script (static)
+/// and a sun movement script (extending MonoBehaviour).
 /// </summary>
 public class Sun : MonoBehaviour {
     private const int RADIUS = 200;
     private const double SCALE = 1.578; // Scale factor calculated from https://en.wikipedia.org/wiki/Angular_diameter
     public const double earthAngularVelocity = 7.2921159D / 100000D * 3600D * Mathf.Rad2Deg;   // In deg/hr
-    public float gameHoursPerRealSecond = 1 / 2F;
-    //private const float dayNightUpdateFreq = 300 / 24F;   // Number of hours per skybox redraw
+    public static float gameHoursPerRealSecond = 1 / 2F;
 
     private GameObject player;
     private Vector3 playerPosition;
 
-    public long julianDate;
-    public long JD {
+    public static long julianDate;
+    public static long JD {
         get { return julianDate; }
     }
 
-    private float jdSunrise, jdSunset;
-    private int daysSinceCalcDayLength;
-
-    private double gmtTimeOfDay;
-    public double localTimeOfDay;
+    private static double gmtTimeOfDay;    // In GMT
+    private static int gmtToLocalConversion = 10;  // Guam is GMT + 10
+    public static double LocalTimeOfDay {   
+        get { return (gmtTimeOfDay + gmtToLocalConversion) % 24; }
+    }
     private double oldTimeOfDay;
-    public double TimeOfDay {
+    public static double TimeOfDay {
         get { return gmtTimeOfDay; }
     }
 
@@ -39,52 +41,25 @@ public class Sun : MonoBehaviour {
         playerPosition = player.transform.position;
 
         // Find current julian Date
-        System.DateTime now = System.DateTime.Now;
-        julianDate = (long) (367 * now.Year - 7 * (now.Year + (now.Month + 9) / 12) / 4 + 275 * now.Month / 9 + now.Day + 1721013.5 
-                             + now.ToUniversalTime().Hour / 24 - 0.5 * Mathf.Sign(100 * now.Year + now.Month - 190002.5F) + 0.5);
-        localTimeOfDay = now.Hour + now.Minute / 60D + now.Second / 3600D; // Time of day in hours
-        gmtTimeOfDay = (localTimeOfDay + 24D - 10D) % 24D;
-        daysSinceCalcDayLength = 31;    // Currently unused, see below comment re:actual daylight times
+        System.DateTime nowGMT = System.DateTime.Now.ToUniversalTime();
+        gmtToLocalConversion = (nowGMT - nowGMT.ToLocalTime()).Hours;
+        julianDate = (long) (367 * nowGMT.Year - 7 * (nowGMT.Year + (nowGMT.Month + 9) / 12) / 4 + 275 * nowGMT.Month / 9 + nowGMT.Day + 1721013.5 
+                             + nowGMT.ToUniversalTime().Hour / 24 - 0.5 * Mathf.Sign(100 * nowGMT.Year + nowGMT.Month - 190002.5F) + 0.5);
+        gmtTimeOfDay = nowGMT.Hour + nowGMT.Minute / 60D + nowGMT.Second / 3600D; // Time of day in hours
     }
 
     void Update()
     {
-        localTimeOfDay += Time.deltaTime * gameHoursPerRealSecond;   // Increment time of day
-        localTimeOfDay %= 24D;
-        gmtTimeOfDay += Time.deltaTime * gameHoursPerRealSecond;
+        gmtTimeOfDay += Time.deltaTime * gameHoursPerRealSecond;    // Increment time of day
         if (gmtTimeOfDay > 24D) {
             gmtTimeOfDay -= 24D;
             ++julianDate;
-            //++daysSinceCalcDayLength;
         }
 
         playerPosition = player.transform.position;
         transform.LookAt(player.transform);
 
         UpdateSunPosition();
-        //FollowPlayer();
-
-        /*
-         * This calculates actual daylight times, but pretty computationally heavy imo and not really worth the time
-         * I'm unsure if UpdateSunPosition() already takes into account the same things as the below computations.
-         * 
-        if (daysSinceCalcDayLength > 30)
-        {
-            float meanSolarTime = n - player.GetComponent<CanoeControls>().longitude / 360F;
-            int meanSolarAnomaly = ((int) (357.5291F + 0.98560028F * meanSolarTime)) % 360;
-            float center = 0.9148F * Mathf.Sin(meanSolarAnomaly * Mathf.Deg2Rad) + 0.02F * Mathf.Sin(2 * meanSolarAnomaly * Mathf.Deg2Rad) + 0.0003F * Mathf.Sin(3 * meanSolarAnomaly * Mathf.Deg2Rad);
-            int eclipLong = ((int)(meanSolarAnomaly + center + 180 + 102.9372F)) % 360;
-            float solarTransit = 2451545.5F + meanSolarTime + 0.0053F * Mathf.Sin(meanSolarAnomaly * Mathf.Deg2Rad) - 0.0069F * Mathf.Sin(2 * eclipLong * Mathf.Deg2Rad);
-            float sinDec = Mathf.Sin(eclipLong * Mathf.Deg2Rad) * Mathf.Sin(23.44F * Mathf.Deg2Rad);
-            float hourAngle = Mathf.Acos(-Mathf.Tan(player.GetComponent<CanoeControls>().latitude) * Mathf.Tan(Mathf.Asin(sinDec)));
-            jdSunset = solarTransit + hourAngle / (2F * Mathf.PI);
-            jdSunrise = solarTransit - hourAngle / (2F * Mathf.PI);
-
-            daysSinceCalcDayLength = 0;
-        }
-        float lengthOfDaylight = jdSunset - jdSunrise;
-        */
-       
     }
 
 
@@ -130,7 +105,7 @@ public class Sun : MonoBehaviour {
         float horiZ = RADIUS * Mathf.Cos(azimuth) * Mathf.Cos(altitude);
         Vector3 newPosition = new Vector3(horiX, horiY, horiZ);
 
-        transform.position = newPosition + playerPosition;  // This line seems kind of redundant with FollowPlayer(), can organize better
+        transform.position = newPosition + playerPosition;  // Follow player and update position
 
         SkyboxController.BlendSkyboxes(altitude * Mathf.Rad2Deg);   // Update skybox alpha blending
         SkyboxController.SetDayTexTint(altitude * Mathf.Rad2Deg);   // Tint sky for sunset/-rise
@@ -173,13 +148,43 @@ public class Sun : MonoBehaviour {
     }
 
     /// <summary>
-    /// <para>Have GameObject follow position of player. Object is not made a child of player to preserve the object's rotation.</para>
-    /// Probably should make parent class, as this method is shared among Moon.cs, Sun.cs, and(to an extent) in Orient.cs.
+    /// <para>Gets the time of day in a readable format.</para>
+    /// Calculations from http://aa.usno.navy.mil/faq/docs/JD_Formula.php
     /// </summary>
-    private void FollowPlayer() {
-        Vector3 delta = player.transform.position - playerPosition;
-        transform.Translate(delta);
-        playerPosition = player.transform.position;
-        transform.LookAt(player.transform);
+    /// <returns>A string of the format "DD/MM/YYYY HOUR:MINUTE:SECONDS".</returns>
+    public static string GetTimeOfDayFormatted() {
+        int N, L, I, J, K;
+        L = (int) (julianDate + 68569);
+        N = 4 * L / 146097;
+        L = L - (146097 * N + 3) / 4;
+        I = 4000 * (L + 1) / 1461001;
+        L = L - 1461 * I / 4 + 31;
+        J = 80 * L / 2447;
+        K = L - 2447 * J / 80;
+        L = J / 11;
+        J = J + 2 - 12 * L;
+        I = 100 * (N - 49) + I + L;
+
+        //++K; // Not a part of calculations, but due to int rounding, seems to always be one day behind
+
+        float hourWithChange = (float) (gmtTimeOfDay);
+        float minsWithChange = (hourWithChange - Mathf.Floor(hourWithChange)) * 60;
+        int secs = (int) ((minsWithChange - Mathf.Floor(minsWithChange)) * 60);
+
+        hourWithChange += gmtToLocalConversion; // Convert to local time
+        if (hourWithChange > 24) {
+            hourWithChange -= 24;
+            K += 1;
+        }
+
+        string dayMonthYear = K.ToString().PadLeft(2, '0') + "/" 
+                                      + J.ToString().PadLeft(2, '0') 
+                                      + "/" + I.ToString();
+        
+        string hourMinSec = ((int) hourWithChange).ToString().PadLeft(2, '0') + ":"
+                                                  + ((int) minsWithChange).ToString().PadLeft(2, '0') + ":"
+                                                  + secs.ToString().PadLeft(2, '0');
+
+        return dayMonthYear + "\t" + hourMinSec;
     }
 }
