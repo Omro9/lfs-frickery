@@ -91,7 +91,7 @@ public class CanoeControls : MonoBehaviour
 
         // Show timeofday ui
         if (m_rightController.gripped) {
-            string timeFormatted = Sun.GetTimeOfDayFormatted();
+            string timeFormatted = SkyboxController.GetTimeOfDayFormatted();
             clockUI.GetComponentInChildren<UnityEngine.UI.Text>().text = timeFormatted;
 
             clockUI.transform.position = m_rightController.transform.position + m_rightController.transform.forward * uiControllerDistance;
@@ -136,7 +136,7 @@ public class CanoeControls : MonoBehaviour
         }
         if (Input.GetKey(KeyCode.F))
         {
-            string timeFormatted = Sun.GetTimeOfDayFormatted();
+            string timeFormatted = SkyboxController.GetTimeOfDayFormatted();
             clockUI.GetComponentInChildren<UnityEngine.UI.Text>().text = timeFormatted;
 
             clockUI.transform.position = eyeCamera.transform.position + eyeCamera.transform.forward * uiControllerDistance;//targetCamera.transform.TransformPoint(uiControllerDistance);

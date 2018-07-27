@@ -14,8 +14,8 @@ public class StarInstancer : MonoBehaviour {
 
 	void Start () {
         starParent = new GameObject("Star Parent");
-        starParent.transform.SetParent(GameObject.Find("Skybox Objects").transform);
-        star = Resources.Load("Star") as GameObject;
+        starParent.transform.SetParent(GameObject.Find("Skybox Controller").transform);
+        star = Resources.Load<GameObject>("Star");
 	}
 	
 	// Update is called once per frame

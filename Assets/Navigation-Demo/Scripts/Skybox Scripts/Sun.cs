@@ -12,65 +12,51 @@ using UnityEngine;
 public class Sun : MonoBehaviour {
     private const int RADIUS = 200;
     private const double SCALE = 1.578; // Scale factor calculated from https://en.wikipedia.org/wiki/Angular_diameter
-    public const double earthAngularVelocity = 7.2921159D / 100000D * 3600D * Mathf.Rad2Deg;   // In deg/hr
-    public static float gameHoursPerRealSecond = 1 / 2F;
 
     private GameObject player;
     private Vector3 playerPosition;
+    private float initIntensity;
 
-    public static long julianDate;
-    public static long JD {
-        get { return julianDate; }
-    }
-
-    private static double gmtTimeOfDay;    // In GMT
-    private static int gmtToLocalConversion = 10;  // Guam is GMT + 10
-    public static double LocalTimeOfDay {   
-        get { return (gmtTimeOfDay + gmtToLocalConversion) % 24; }
-    }
-    private double oldTimeOfDay;
-    public static double TimeOfDay {
-        get { return gmtTimeOfDay; }
-    }
-
-
-    void Start()
+    private void Awake()
     {
+        name = "Sun";
         GetComponent<SpriteRenderer>().material.renderQueue = 1500; // Put in back half of background layer
         player = GameObject.Find("Player");
         playerPosition = player.transform.position;
+        UpdateSunPosition();
+    }
 
-        // Find current julian Date
-        System.DateTime nowGMT = System.DateTime.Now.ToUniversalTime();
-        gmtToLocalConversion = (nowGMT - nowGMT.ToLocalTime()).Hours;
-        julianDate = (long) (367 * nowGMT.Year - 7 * (nowGMT.Year + (nowGMT.Month + 9) / 12) / 4 + 275 * nowGMT.Month / 9 + nowGMT.Day + 1721013.5 
-                             + nowGMT.ToUniversalTime().Hour / 24 - 0.5 * Mathf.Sign(100 * nowGMT.Year + nowGMT.Month - 190002.5F) + 0.5);
-        gmtTimeOfDay = nowGMT.Hour + nowGMT.Minute / 60D + nowGMT.Second / 3600D; // Time of day in hours
+    void Start()
+    {
+        initIntensity = GetComponent<Light>().intensity;
     }
 
     void Update()
     {
-        gmtTimeOfDay += Time.deltaTime * gameHoursPerRealSecond;    // Increment time of day
-        if (gmtTimeOfDay > 24D) {
-            gmtTimeOfDay -= 24D;
-            ++julianDate;
-        }
-
         playerPosition = player.transform.position;
         transform.LookAt(player.transform);
 
-        UpdateSunPosition();
+        float alt = UpdateSunPosition();
+        SkyboxController.BlendSkyboxes(alt);   // Update skybox alpha blending
+        SkyboxController.SetDayTexTint(alt);   // Tint sky for sunset/-rise 
+        float intensityScalar = (alt < 0) ? Mathf.Lerp(0, 1, 1 - alt / -20F): 1F;   // 20 deg below horizon is arbitrary
+        GetComponent<Light>().intensity = initIntensity * intensityScalar;
+        SkyboxController.isDaytime = alt > 0;
     }
 
 
     /// <summary>
-    /// <para>Transform sun based on time of day.</para>
+    /// <para>Transform sun based on time of day. Does not take into account atmospheric refraction.</para>
     /// Equatorial coordinate calculations taken from https://en.wikipedia.org/wiki/Position_of_the_Sun#Approximate_position,
     /// horizontal calculations taken from https://en.wikipedia.org/wiki/Celestial_coordinate_system#Equatorial_%E2%86%94_horizontal
     /// </summary>
-    private void UpdateSunPosition()
+    /// <returns>The new altitude of the sun in degrees.</returns>
+    private float UpdateSunPosition()
     {
         // Calculate position of sun relative to Earth (equatorial coordinates)
+        long julianDate = SkyboxController.JD;
+        double gmtTimeOfDay = SkyboxController.TimeOfDay;
+
         double n = julianDate - 2451545 - 0.5D + gmtTimeOfDay / 24D;
         float obliquity = (float)((23.439D - 0.0000004D * n) * Mathf.Deg2Rad);
 
@@ -106,85 +92,6 @@ public class Sun : MonoBehaviour {
         Vector3 newPosition = new Vector3(horiX, horiY, horiZ);
 
         transform.position = newPosition + playerPosition;  // Follow player and update position
-
-        SkyboxController.BlendSkyboxes(altitude * Mathf.Rad2Deg);   // Update skybox alpha blending
-        SkyboxController.SetDayTexTint(altitude * Mathf.Rad2Deg);   // Tint sky for sunset/-rise
-    }
-
-    /// <summary>
-    /// Updates skybox's alpha blending of day/night skies.
-    /// </summary>
-    [System.Obsolete("Skybox alpha blending is handled exclusively by SkyboxController.cs")]
-    private void UpdateSkybox(){
-        float output;
-        float t = (float) gmtTimeOfDay;
-        if (t < 12F)
-        {  // These conditionals are a naive way to apply then reverse the easing function
-            output = Ease(t, 0F, 1F, 12F);
-        }
-        else
-        {
-            output = 1 - Ease(t - 12F, 0F, 1F, 12F);
-        }
-
-        RenderSettings.skybox.SetFloat("_BlendCubemaps", output);   // Shader for blending alpha channels of two cubemaps
-        AnimateStar.daytimeScaleEffect = 1F - Mathf.Round(output);
-        //GameObject.Find("Star Parent Object").transform.localScale = AnimateStar.initScale * Mathf.Round(1F - output);
-    }
-
-    /// <summary>
-    /// A quintic in/out easing function taken from http://www.timotheegroleau.com/.
-    /// </summary>
-    /// <returns>The ease.</returns>
-    /// <param name="t">Time variable.</param>
-    /// <param name="b">Beginning value of parameter to be eased.</param>
-    /// <param name="c">Change in value of parameter to be eased.</param>
-    /// <param name="d">Final value of parameter to be eased. <example><code>t == d</code> returns 1.</example></param>
-    private float Ease(float t, float b, float c, float d)
-    {
-        float ts = (t /= d) * t;    // aka t = t / d; ts = t^2; (ts=="t squared")
-        float tc = ts * t;          // aka tc = t^3;            (tc=="t cubed")
-        return b + c * (6F * tc * ts + -15F * ts * ts + 10F * tc); // aka begin + delta*(6*t^5-15*t^4+10t^3)
-    }
-
-    /// <summary>
-    /// <para>Gets the time of day in a readable format.</para>
-    /// Calculations from http://aa.usno.navy.mil/faq/docs/JD_Formula.php
-    /// </summary>
-    /// <returns>A string of the format "DD/MM/YYYY HOUR:MINUTE:SECONDS".</returns>
-    public static string GetTimeOfDayFormatted() {
-        int N, L, I, J, K;
-        L = (int) (julianDate + 68569);
-        N = 4 * L / 146097;
-        L = L - (146097 * N + 3) / 4;
-        I = 4000 * (L + 1) / 1461001;
-        L = L - 1461 * I / 4 + 31;
-        J = 80 * L / 2447;
-        K = L - 2447 * J / 80;
-        L = J / 11;
-        J = J + 2 - 12 * L;
-        I = 100 * (N - 49) + I + L;
-
-        //++K; // Not a part of calculations, but due to int rounding, seems to always be one day behind
-
-        float hourWithChange = (float) (gmtTimeOfDay);
-        float minsWithChange = (hourWithChange - Mathf.Floor(hourWithChange)) * 60;
-        int secs = (int) ((minsWithChange - Mathf.Floor(minsWithChange)) * 60);
-
-        hourWithChange += gmtToLocalConversion; // Convert to local time
-        if (hourWithChange > 24) {
-            hourWithChange -= 24;
-            K += 1;
-        }
-
-        string dayMonthYear = K.ToString().PadLeft(2, '0') + "/" 
-                                      + J.ToString().PadLeft(2, '0') 
-                                      + "/" + I.ToString();
-        
-        string hourMinSec = ((int) hourWithChange).ToString().PadLeft(2, '0') + ":"
-                                                  + ((int) minsWithChange).ToString().PadLeft(2, '0') + ":"
-                                                  + secs.ToString().PadLeft(2, '0');
-
-        return dayMonthYear + "\t" + hourMinSec;
+        return altitude * Mathf.Rad2Deg;
     }
 }

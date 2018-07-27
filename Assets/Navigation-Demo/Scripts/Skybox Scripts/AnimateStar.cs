@@ -43,7 +43,7 @@ public class AnimateStar : MonoBehaviour {
 
         transform.RotateAround(playerPosition,
                                SkyboxController.North,
-                               (float) (Time.deltaTime * Sun.gameHoursPerRealSecond * Sun.earthAngularVelocity));
+                               (float) (Time.deltaTime * SkyboxController.gameHoursPerRealSecond * SkyboxController.earthAngularVelocity));
         
         FollowPlayer();
 	}
