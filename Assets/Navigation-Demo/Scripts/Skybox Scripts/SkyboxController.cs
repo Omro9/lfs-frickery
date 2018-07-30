@@ -144,7 +144,7 @@ public class SkyboxController : MonoBehaviour
     /// <para>Gets the time of day in a readable format.</para>
     /// Calculations from http://aa.usno.navy.mil/faq/docs/JD_Formula.php
     /// </summary>
-    /// <returns>A string of the format "DD/MM/YYYY HOUR:MINUTE:SECONDS".</returns>
+    /// <returns>A string of the format "DD/MM/YYYY HH:MM:SS".</returns>
     public static string GetTimeOfDayFormatted()
     {
         int N, L, I, J, K;
@@ -172,14 +172,10 @@ public class SkyboxController : MonoBehaviour
             K += 1;
         }
 
-        string dayMonthYear = K.ToString().PadLeft(2, '0') + "/"
-                                      + J.ToString().PadLeft(2, '0')
-                                      + "/" + I.ToString();
-
+        string dayMonthYear = K.ToString().PadLeft(2, '0') + "/" + J.ToString().PadLeft(2, '0') + "/" + I.ToString();
         string hourMinSec = ((int)hourWithChange).ToString().PadLeft(2, '0') + ":"
                                                   + ((int)minsWithChange).ToString().PadLeft(2, '0') + ":"
                                                   + secs.ToString().PadLeft(2, '0');
-
         return dayMonthYear + "\t" + hourMinSec;
     }
 
