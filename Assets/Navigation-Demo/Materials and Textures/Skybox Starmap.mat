@@ -67,7 +67,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - _BlendCubemaps: 0.06717194
+    - _BlendCubemaps: 0.88429344
     - _BumpScale: 1
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
@@ -85,12 +85,12 @@ Material:
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _UVSec: 0
-    - _XRotation: -49.678963
-    - _YRotation: -200.21507
-    - _ZRotation: -69.656654
+    - _XRotation: -324.6315
+    - _YRotation: -225.41971
+    - _ZRotation: -74.02591
     - _ZWrite: 1
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _Tint: {r: 0.5094665, g: 0.49542964, b: 0.4882905, a: 0.9976334}
+    - _Tint: {r: 0.5025824, g: 0.49875325, b: 0.4968058, a: 0.9993544}
     - _Tint2: {r: 0.5, g: 0.5, b: 0.5, a: 1}
