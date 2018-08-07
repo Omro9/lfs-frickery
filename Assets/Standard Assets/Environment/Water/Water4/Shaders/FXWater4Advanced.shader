@@ -104,14 +104,14 @@ CGINCLUDE
 	uniform float4 _DistortParams;
 	uniform float _FresnelScale;
 	uniform float4 _BumpTiling;
-	uniform float4 _BumpDirection;
+	float4 _BumpDirection;
 
-	uniform float4 _GAmplitude;
-	uniform float4 _GFrequency;
-	uniform float4 _GSteepness;
-	uniform float4 _GSpeed;
-	uniform float4 _GDirectionAB;
-	uniform float4 _GDirectionCD;
+	float4 _GAmplitude;
+	float4 _GFrequency;
+	float4 _GSteepness;
+	float4 _GSpeed;
+	float4 _GDirectionAB;
+	float4 _GDirectionCD;
 	
 	// foam
 	uniform float4 _Foam;

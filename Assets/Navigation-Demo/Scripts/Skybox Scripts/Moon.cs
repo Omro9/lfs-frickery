@@ -80,8 +80,12 @@ public class Moon : MonoBehaviour {
                                (float) (Time.deltaTime * SkyboxController.gameHoursPerRealSecond * SkyboxController.earthAngularVelocity));
         if (deltaGamma > 1F)
             UpdatePhase();
-        float intensityScalar = (transform.position.y < 0) ? Mathf.Lerp(0, 1, 1 - transform.position.y / -15F) : 1F;   // 20 deg below horizon is arbitrary
-        float phaseIntensityScalar = Mathf.Lerp(0.25F, 1.3F, gamma / 180);   // 20 deg below horizon is arbitrary
+        
+        if (SkyboxController.IsDaytime) {   // If it's day, tint the moon to be bluish
+            spRend.color = Color.Lerp(Color.cyan, Color.white, gamma / 180F);
+        }
+        float intensityScalar = (transform.position.y < 0) ? Mathf.Lerp(0, 1, 1 - transform.position.y / -15F) : 1F;   // 15 deg below horizon is arbitrary
+        float phaseIntensityScalar = Mathf.Lerp(0.25F, 1.3F, gamma / 180);
         GetComponent<Light>().intensity = initIntensity * intensityScalar * phaseIntensityScalar;
         FollowPlayer();
 	}

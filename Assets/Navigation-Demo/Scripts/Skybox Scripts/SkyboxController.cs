@@ -5,7 +5,11 @@ public class SkyboxController : MonoBehaviour
 {
     public const double earthAngularVelocity = 7.2921159D / 100000D * 3600D * Mathf.Rad2Deg;   // In deg/hr
     public static float gameHoursPerRealSecond = 1 / 2F;
-    public static bool isDaytime;
+    private static bool isDaytime;
+    public static bool IsDaytime {
+        get { return isDaytime; }
+        set { isDaytime = value; }
+    }
 
     private kode80.Clouds.kode80Clouds clouds;
     private GameObject player;
@@ -13,7 +17,7 @@ public class SkyboxController : MonoBehaviour
 
     private Material skybox;
     private static Transform rotationRef;
-    public Transform Transform {
+    private static Transform Transform {
         get { return rotationRef; }
     }
     /// <summary>
@@ -49,6 +53,8 @@ public class SkyboxController : MonoBehaviour
     {
         get { return gmtTimeOfDay; }
     }
+
+
 
     // Use this for initialization
     void Start()
@@ -91,6 +97,7 @@ public class SkyboxController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Debug.Log(SkyboxController.North);
         // Increment time of day
         gmtTimeOfDay += Time.deltaTime * gameHoursPerRealSecond;   
         if (gmtTimeOfDay > 24D) {

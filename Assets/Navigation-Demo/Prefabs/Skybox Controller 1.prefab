@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4462023413400818}
   - component: {fileID: 114863405226407178}
   - component: {fileID: 114636572494553056}
+  - component: {fileID: 114063487401141518}
   m_Layer: 0
   m_Name: Skybox Controller 1
   m_TagString: Untagged
@@ -51,7 +52,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1704578068275030}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -69.05063, y: -20.424744, z: -5.4460564}
+  m_LocalPosition: {x: -69.05063, y: -100, z: -5.4460564}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4462023413400818}
@@ -71,6 +72,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114063487401141518
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1456239844087048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 849f12861063b4ef6af0d3ff896bc1f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114636572494553056
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -96,7 +108,7 @@ MonoBehaviour:
   targetCamera: {fileID: 0}
   subPixelSize: 1
   maxIterations: 128
-  renderSize: 1
+  renderSize: 0
   fixedWidth: 500
   fixedHeight: 500
   downsample: 2
@@ -107,7 +119,7 @@ MonoBehaviour:
   horizonCoverageEnd: 0.4
   cloudBaseColor: {r: 0.5176471, g: 0.6666667, b: 0.8156863, a: 1}
   cloudTopColor: {r: 1, g: 1, b: 1, a: 1}
-  sunLight: {fileID: 0}
+  sunLight: {fileID: 108134086597842602, guid: 4a22bc7f223367e44ad93075f2e8a375, type: 2}
   sunScalar: 1
   ambientScalar: 1
   sunRayLength: 0.08

@@ -29,6 +29,7 @@ public class Sun : MonoBehaviour {
     void Start()
     {
         initIntensity = GetComponent<Light>().intensity;
+        SkyboxController.IsDaytime = false;
     }
 
     void Update()
@@ -41,7 +42,7 @@ public class Sun : MonoBehaviour {
         SkyboxController.SetDayTexTint(alt);   // Tint sky for sunset/-rise 
         float intensityScalar = (alt < 0) ? Mathf.Lerp(0, 1, 1 - alt / -20F): 1F;   // 20 deg below horizon is arbitrary
         GetComponent<Light>().intensity = initIntensity * intensityScalar;
-        SkyboxController.isDaytime = alt > 0;
+        SkyboxController.IsDaytime = alt > 0;
     }
 
 
