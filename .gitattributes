@@ -1,2 +1,13 @@
-Assets/Navigation-Demo/Animation filter=lfs diff=lfs merge=lfs -text
-Assets/Canoe_Hap_Anim_Textures.fbx filter=lfs diff=lfs merge=lfs -text
+Assets/Navigation-Demo/Animation[[:space:]]Assets/Canoe_Hap_Anim_Textures.fbx filter=lfs diff=lfs merge=lfs -text
+Assets/Navigation-Demo/Materials[[:space:]]and[[:space:]]Textures/starmap_16k.tif filter=lfs diff=lfs merge=lfs -text
+Assets/SteamVR/InteractionSystem/Longbow/Models/Arrow.fbx filter=lfs diff=lfs merge=lfs -text
+Assets/SteamVR/InteractionSystem/Longbow/Models/Balloon.fbx filter=lfs diff=lfs merge=lfs -text
+Assets/SteamVR/InteractionSystem/Longbow/Models/Longbow.fbx filter=lfs diff=lfs merge=lfs -text
+Assets/SteamVR/InteractionSystem/Teleport/Models/TeleportDestination.fbx filter=lfs diff=lfs merge=lfs -text
+Assets/SteamVR/InteractionSystem/Teleport/Models/TeleportDestinationInvalid.fbx filter=lfs diff=lfs merge=lfs -text
+Assets/kode80/Clouds/Examples/Demo/Textures/Moss_03_A.tif filter=lfs diff=lfs merge=lfs -text
+Assets/kode80/Clouds/Examples/Demo/Textures/Moss_03_N.tif filter=lfs diff=lfs merge=lfs -text
+Assets/kode80/Clouds/Examples/Demo/Textures/Soil_Mud_Floor_39c246142130_large_nd.tif filter=lfs diff=lfs merge=lfs -text
+Assets/SteamVR/InteractionSystem/Teleport/Models/TeleportMarker.fbx filter=lfs diff=lfs merge=lfs -text
+Assets/SteamVR/InteractionSystem/Teleport/Models/TeleportPlayAreaPieces.fbx filter=lfs diff=lfs merge=lfs -text
+Assets/kode80/Clouds/Examples/Demo/Models/kode80CloudsDemoTerrain.asset filter=lfs diff=lfs merge=lfs -text
